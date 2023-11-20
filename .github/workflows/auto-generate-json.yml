@@ -90,15 +90,16 @@ jobs:
     - name: Set artifact path
       id: set-artifact-path
       run: |
-        #!/bin/bash
-        mkdir -p LeviIcons
-        mv -f levi.icon.json LeviIcons
-        echo "::set-output name=artifact_path::LeviIcons"
+        echo "::set-output name=artifact_path::LeviIcons/levi.icon.json"
+        echo "::set-output name=artifact_name::levi.icon.json"
+      env:
+        GITHUB_TOKEN: ${{ secrets.LEVIICONSI }}
 
-    # 上传 JSON 文件为 artifact
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: levi.icon.json
-        path: LeviIcons
+        name: ${{ needs.generate-json.outputs.artifact_name }}
+        path: ${{ needs.generate-json.outputs.artifact_path }}
+
+    
     
