@@ -33,9 +33,6 @@ jobs:
         pwd
         ls -la
 
-    - name: Change working directory
-      run: cd /home/runner/work/LeviIcons/LeviIcons
-
     - name: Generate JSON
       run: |
         #!/bin/bash
