@@ -54,9 +54,10 @@ jobs:
             FILE_NAME=$(basename "$FILE_PATH")
             RAW_URL="https://raw.githubusercontent.com/czy13724/LeviIcons/main/$FILE_PATH"
 
-          # 如果不是第一个图标，则在前一个图标的末尾添加逗号
+        # 如果不是第一个图标，则在前一个图标的末尾添加逗号
           if [ "$FIRST_ITEM" = false ]; then
-            sed -i '$s/}$/,/' $JSON_FILE
+        # 在前一个图标的末尾添加逗号
+            sed -i '$s/}$/},/' $JSON_FILE
           fi
     
             # Append image information to the JSON file
