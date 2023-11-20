@@ -32,22 +32,17 @@ jobs:
       run: |
         pwd
         ls -la
-
     - name: Generate JSON
       run: |
         IMAGES_FOLDER="leviicons"
         JSON_FILE="levi.icons.json"
         DESTINATION_FOLDER="LeviIcons"
-
         echo "Checking current directory:"
         pwd
-
         echo "Listing files in leviicons:"
         ls -al $IMAGES_FOLDER
-
         # Create an empty JSON file
         echo "[]" > $JSON_FILE
-
         # 创建一个 JSON 文件头部
         echo "{" > $JSON_FILE
         echo '  "name": "Levi图标订阅",' >> $JSON_FILE
@@ -59,7 +54,6 @@ jobs:
           if [ -f "$FILE_PATH" ]; then
             FILE_NAME=$(basename "$FILE_PATH")
             RAW_URL="https://raw.githubusercontent.com/czy13724/LeviIcons/main/$FILE_PATH"
-
         # 如果不是第一个图标，则在前一个图标的末尾添加逗号
           if [ "$FIRST_ITEM" = false ]; then
         # 在前一个图标的末尾添加逗号
@@ -82,8 +76,6 @@ jobs:
             # 添加 JSON 文件尾部
             echo ']' >> $JSON_FILE
             echo '}' >> $JSON_FILE
-          env:
-            GITHUB_TOKEN: ${{ secrets.LEVIICONSI }}
             
         # Remove the leading comma
         sed -i 's/^\(.\{2\}\)//' $JSON_FILE
@@ -91,15 +83,12 @@ jobs:
         echo "Checking generated JSON file:"
         cat $JSON_FILE
 
-        # 移动 JSON 文件到 LeviIcons 目录
-        mv -f $JSON_FILE LeviIcons
+        # Move the JSON file to the LeviIcons directory
+        mv -f $JSON_FILE $DESTINATION_FOLDER
+      shell: bash
 
-        # 上传 JSON 文件为 artifact
-        - name: Upload Artifact
-          uses: actions/upload-artifact@v2
-          with:
-            name: levi.icon.json
-            path: LeviIcons
-
-    
-  
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: levi.icon.json
+        path: LeviIcons
