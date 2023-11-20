@@ -33,7 +33,7 @@ jobs:
         pwd
         ls -la
         ls -la LeviIcons
-        ls -la /home/runner/work/LeviIcons/LeviIcons/leviicons
+        ls -la leviicons
 
 
     - name: Generate JSON
