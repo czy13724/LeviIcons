@@ -93,8 +93,6 @@ jobs:
         # 移动 JSON 文件到 LeviIcons 目录
         mv -f $JSON_FILE LeviIcons
 
-        echo "::set-output name=artifact_path::LeviIcons/levi.icon.json"
-
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:
