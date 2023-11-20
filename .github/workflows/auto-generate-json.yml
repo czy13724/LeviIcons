@@ -74,11 +74,14 @@ jobs:
         echo '  ]' >> $JSON_FILE
         echo "}" >> $JSON_FILE
 
-        - name: Set artifact path
-        id: set-artifact-path
-        run: 
+    - name: Set artifact path
+      id: set-artifact-path
+      run: 
         #!/bin/bash
-        echo "::set-output name=artifact_path::levi.icon.json"
+        mkdir -p LeviIcons
+        mv -f levi.icon.json LeviIcons
+        echo "::set-output name=artifact_path::LeviIcons/levi.icon.json"
+
 
         # 上传 JSON 文件为 artifact
         echo "Uploading artifact..."
