@@ -28,6 +28,11 @@ jobs:
     - name: Display Node.js version
       run: node --version
 
+    - name: Debug - List files in leviicons
+      run: |
+        echo "Listing files in LeviIcons/leviicons:"
+        ls -la LeviIcons/leviicons
+
     - name: Generate JSON
       run: |
         #!/bin/bash
