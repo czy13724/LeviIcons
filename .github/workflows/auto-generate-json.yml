@@ -85,8 +85,6 @@ jobs:
 
         # Move the JSON file to the LeviIcons directory
         mv -f $JSON_FILE LeviIcons
-      shell: bash
-
 
     - name: Set artifact path
       id: set-artifact-path
