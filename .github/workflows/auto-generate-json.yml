@@ -54,6 +54,13 @@ jobs:
             FILE_NAME=$(basename "$FILE_PATH")
             RAW_URL="https://raw.githubusercontent.com/czy13724/LeviIcons/main/$FILE_PATH"
 
+           # 如果不是第一个图标，则添加逗号
+          if [ "$FIRST_ITEM" = true ]; then
+            FIRST_ITEM=false
+          else
+            echo "," >> $JSON_FILE
+          fi
+    
             # Append image information to the JSON file
             echo -n ", " >> $JSON_FILE
             echo "{" >> $JSON_FILE
