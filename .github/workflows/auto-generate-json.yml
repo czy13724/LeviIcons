@@ -35,52 +35,43 @@ jobs:
 
     - name: Generate JSON
       run: |
-        #!/bin/bash
+        IMAGES_FOLDER="leviicons"
+        JSON_FILE="levi.icons.json"
+        DESTINATION_FOLDER="LeviIcons"
 
-        # 更改工作目录到仓库的根目录
-        cd $GITHUB_WORKSPACE
-    
-        # 定义图片文件夹路径
-        IMAGES_FOLDER="LeviIcons/leviicons"
+        echo "Checking current directory:"
+        pwd
 
-        # 定义目标 JSON 文件名
-        JSON_FILE="levi.icon.json"
+        echo "Listing files in leviicons:"
+        ls -al $IMAGES_FOLDER
 
-        # 创建一个 JSON 文件头部
-        echo "{" > $JSON_FILE
-        echo '  "name": "Levi图标订阅",' >> $JSON_FILE
-        echo '  "description": "收集一些自己常用的图标 by czy13724",' >> $JSON_FILE
-        echo '  "icons": [' >> $JSON_FILE
+        # Create an empty JSON file
+        echo "[]" > $JSON_FILE
 
-        # 遍历图片文件夹中的所有文件
-        FIRST_ITEM=true
+        # Populate the array with image information
         for FILE_PATH in $IMAGES_FOLDER/*; do
-          # 忽略非图片文件
           if [ -f "$FILE_PATH" ]; then
-            # 获取文件名（即图片名称）
             FILE_NAME=$(basename "$FILE_PATH")
-
-            # 构建 raw 地址
             RAW_URL="https://raw.githubusercontent.com/czy13724/LeviIcons/main/$FILE_PATH"
 
-            # 如果不是第一个图标，则添加逗号
-            if [ "$FIRST_ITEM" = true ]; then
-              FIRST_ITEM=false
-            else
-              echo "," >> $JSON_FILE
-            fi
-
-            # 将图片信息添加到 JSON 文件
-            echo '    {' >> $JSON_FILE
-            echo '      "name": "'$FILE_NAME'",' >> $JSON_FILE
-            echo '      "url": "'$RAW_URL'"' >> $JSON_FILE
-            echo '    }' >> $JSON_FILE
+            # Append image information to the JSON file
+            echo -n ", " >> $JSON_FILE
+            echo "{" >> $JSON_FILE
+            echo "  \"name\": \"$FILE_NAME\"," >> $JSON_FILE
+            echo "  \"rawUrl\": \"$RAW_URL\"," >> $JSON_FILE
+            echo "}" >> $JSON_FILE
           fi
         done
 
-        # 闭合 JSON 数组
-        echo '  ]' >> $JSON_FILE
-        echo "}" >> $JSON_FILE
+        # Remove the leading comma
+        sed -i 's/^\(.\{2\}\)//' $JSON_FILE
+
+        echo "Checking generated JSON file:"
+        cat $JSON_FILE
+
+        # Move the JSON file to the LeviIcons directory
+        mv -f $JSON_FILE $DESTINATION_FOLDER
+      shell: bash
 
     - name: Set artifact path
       id: set-artifact-path
