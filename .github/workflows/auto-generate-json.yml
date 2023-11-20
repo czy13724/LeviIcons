@@ -41,7 +41,7 @@ jobs:
         # 创建一个 JSON 文件头部
         echo "{" > $JSON_FILE
         echo '  "name": "Levi图标订阅",' >> $JSON_FILE
-        echo '  "description": "收集一些自己常用的图标 by czy13724",' >> $JSON_FILE
+        echo '  "description": "收集一些自己常用的图标 by @czy13724",' >> $JSON_FILE
         echo '  "icons": [' >> $JSON_FILE
 
         # 遍历图片文件夹中的所有文件
@@ -73,9 +73,6 @@ jobs:
         # 闭合 JSON 数组
         echo '  ]' >> $JSON_FILE
         echo "}" >> $JSON_FILE
-
-        # 进入仓库根目录
-        cd $GITHUB_WORKSPACE
 
         # 移动 JSON 文件到仓库根目录
         mv -f $JSON_FILE $GITHUB_WORKSPACE
