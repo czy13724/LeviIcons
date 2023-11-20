@@ -96,7 +96,7 @@ jobs:
     - name: Set artifact path
       id: set-artifact-path
       run: 
-        mv -f levi.icon.json LeviIcons
+        mv -f $JSON_FILE LeviIcons/levi.icon.json
         echo "::set-output name=artifact_path::LeviIcons/levi.icon.json"
 
     - name: Upload Artifact
