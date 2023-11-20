@@ -101,12 +101,6 @@ jobs:
         mv -f levi.icon.json LeviIcons
         echo "::set-output name=artifact_path::LeviIcons/levi.icon.json"
 
-        echo "Uploading artifact..."
-        echo "::set-output name=artifact_path::$GITHUB_WORKSPACE/$JSON_FILE"
-        echo "::set-output name=artifact_name::$JSON_FILE"
-      env:
-        GITHUB_TOKEN: ${{ secrets.LEVIICONSI }}
-
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:
