@@ -95,9 +95,15 @@ jobs:
     - name: Set artifact path
       id: set-artifact-path
       run: |
-        mkdir -p LeviIcons
-        mv -f $JSON_FILE LeviIcons
-        echo "::set-output name=artifact_path::LeviIcons/levi.icon.json"
+        - name: Set artifact path
+          id: set-artifact-path
+          run: |
+            if [ ! -d "LeviIcons" ]; then
+              mkdir LeviIcons
+            fi
+            cp -f levi.icon.json LeviIcons
+            echo "::set-output name=artifact_path::LeviIcons/levi.icon.json"
+
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
