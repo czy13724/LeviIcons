@@ -48,6 +48,12 @@ jobs:
         # Create an empty JSON file
         echo "[]" > $JSON_FILE
 
+        # 创建一个 JSON 文件头部
+        echo "{" > $JSON_FILE
+        echo '  "name": "Levi图标订阅",' >> $JSON_FILE
+        echo '  "description": "收集一些自己常用的图标 by @czy13724",' >> $JSON_FILE
+        echo '  "icons": [' >> $JSON_FILE
+        
         # Populate the array with image information
         for FILE_PATH in $IMAGES_FOLDER/*; do
           if [ -f "$FILE_PATH" ]; then
@@ -85,4 +91,11 @@ jobs:
       with:
         name: levi.icon.json
         path: LeviIcons
+       
+        # 移除最后一个逗号
+        sed -i '$s/,$//' $JSON_FILE
+
+        # 添加 JSON 文件尾部
+        echo ']' >> $JSON_FILE
+        echo '}' >> $JSON_FILE
 
