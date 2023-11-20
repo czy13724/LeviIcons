@@ -35,7 +35,7 @@ jobs:
         ls -la LeviIcons
 
     - name: Change working directory
-      run: cd LeviIcons/LeviIcons/leviicons
+      run: cd /home/runner/work/LeviIcons/LeviIcons
 
     - name: Generate JSON
       run: |
