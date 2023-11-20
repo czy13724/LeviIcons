@@ -1,0 +1,75 @@
+name: Generate Levi Icons JSON
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      dummy-trigger:
+        description: 'Dummy trigger for manual run'
+        default: 'Run workflow'
+
+jobs:
+  generate-json:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4.0.0
+      with:
+        node-version: '16'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Generate JSON
+      run: |
+        IMAGES_FOLDER="LeviIcons"
+
+        # 创建一个空的 JSON 数组
+        echo "[" > levi.icon.json
+
+        # 添加说明
+        echo '  {' >> levi.icon.json
+        echo '    "name": "Levi图标订阅",' >> levi.icon.json
+        echo '    "description": "收集一些自己常用的图标 by czy13724",' >> levi.icon.json
+        echo '    "icons": [' >> levi.icon.json
+
+        # 遍历图片文件夹中的所有文件
+        for FILE_PATH in $IMAGES_FOLDER/*; do
+          # 忽略非图片文件
+          if [ -f "$FILE_PATH" ]; then
+            # 获取文件名（即图片名称）
+            FILE_NAME=$(basename "$FILE_PATH")
+
+            # 构建 raw 地址
+            RAW_URL="https://raw.githubusercontent.com/czy13724/LeviIcons/main/$FILE_PATH"
+
+            # 将图片信息添加到 JSON 文件
+            echo "      {" >> levi.icon.json
+            echo "        \"name\": \"$FILE_NAME\"," >> levi.icon.json
+            echo "        \"url\": \"$RAW_URL\"," >> levi.icon.json
+            echo "      }," >> levi.icon.json
+          fi
+        done
+
+        # 移除最后一个逗号
+        sed -i '$ s/,$//' levi.icon.json
+
+        # 闭合 JSON 数组
+        echo "    ]" >> levi.icon.json
+        echo '  }' >> levi.icon.json
+        echo "]" >> levi.icon.json
+
+        # 提交生成的 JSON 文件
+        git config --global user.email "actions@github.com"
+        git config --global user.name "GitHub Actions"
+        git add levi.icon.json
+        git commit -m "Generate levi.icon.json"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.LEVIICONSI }}
