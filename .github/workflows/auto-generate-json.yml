@@ -93,7 +93,9 @@ jobs:
         mkdir -p LevcIcons
         mv -f levi.icon.json LeviIcons
         echo "::set-output name=artifact_path::LeviIcons"
-
+      env:
+        GITHUB_TOKEN: ${{ secrets.LEVIICONSI }}
+        
         # 上传 JSON 文件为 artifact
         echo "Uploading artifact..."
         echo "::set-output name=artifact_path::$GITHUB_WORKSPACE/$JSON_FILE"
