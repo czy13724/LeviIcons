@@ -93,12 +93,6 @@ jobs:
 
         # 移动 JSON 文件到 LeviIcons 目录
         mv -f $JSON_FILE $DESTINATION_FOLDER
-        
-        - name: Set artifact path
-          id: set-artifact-path
-          run: |
-            mkdir -p $DESTINATION_FOLDER
-            echo "::set-output name=artifact_path::$DESTINATION_FOLDER"
 
         # 上传 JSON 文件为 artifact
         - name: Upload Artifact
