@@ -90,12 +90,13 @@ jobs:
         cat $JSON_FILE
 
         # Move the JSON file to the LeviIcons directory
-        mv -f $JSON_FILE $DESTINATION_FOLDER
-        shell: bash
+        # 移动 JSON 文件到 LeviIcons 目录
+        mv -f $JSON_FILE LeviIcons
 
+        # 提交生成的 JSON 文件
         git config --global user.email "actions@github.com"
         git config --global user.name "GitHub Actions"
-        git add levi.icon.json
+        git add LeviIcons/$JSON_FILE
         git commit -m "UPDATE generate levi.icon.json"
         git push
       env:
