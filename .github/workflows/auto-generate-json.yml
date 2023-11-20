@@ -1,9 +1,11 @@
-name: Generate Levi Icons JSON
+name: Generate Image JSON
 
 on:
   push:
     branches:
       - main
+    paths:
+      - 'LeviIcons/*'
   workflow_dispatch:
     inputs:
       dummy-trigger:
@@ -15,29 +17,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
     - name: Set up Node.js
-      uses: actions/setup-node@v4.0.0
+      uses: actions/setup-node@v4
       with:
         node-version: '16'
 
-    - name: Install dependencies
-      run: npm install
+    - name: Output GitHub Actions Runner environment
+      run: echo "GitHub Actions Runner Environment: $GITHUB_RUNNER"
+
+    - name: Clear npm cache
+      run: npm cache clean -f
+
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Display Node.js version
+      run: node --version
 
     - name: Generate JSON
       run: |
+        #!/bin/bash
+
+        # 定义图片文件夹路径
         IMAGES_FOLDER="LeviIcons"
 
-        # 创建一个空的 JSON 数组
-        echo "[" > levi.icon.json
-
-        # 添加说明
-        echo '  {' >> levi.icon.json
-        echo '    "name": "Levi图标订阅",' >> levi.icon.json
-        echo '    "description": "收集一些自己常用的图标 by czy13724",' >> levi.icon.json
-        echo '    "icons": [' >> levi.icon.json
+        # 添加说明到 JSON 文件
+        echo "{" > levi.icon.json
+        echo "  \"name\": \"Levi图标订阅\"," >> levi.icon.json
+        echo "  \"description\": \"收集一些自己常用的图标 by czy13724\"," >> levi.icon.json
+        echo "  \"icons\": [" >> levi.icon.json
 
         # 遍历图片文件夹中的所有文件
         for FILE_PATH in $IMAGES_FOLDER/*; do
@@ -50,10 +58,10 @@ jobs:
             RAW_URL="https://raw.githubusercontent.com/czy13724/LeviIcons/main/$FILE_PATH"
 
             # 将图片信息添加到 JSON 文件
-            echo "      {" >> levi.icon.json
-            echo "        \"name\": \"$FILE_NAME\"," >> levi.icon.json
-            echo "        \"url\": \"$RAW_URL\"," >> levi.icon.json
-            echo "      }," >> levi.icon.json
+            echo "    {" >> levi.icon.json
+            echo "      \"name\": \"$FILE_NAME\"," >> levi.icon.json
+            echo "      \"url\": \"$RAW_URL\"," >> levi.icon.json
+            echo "    }," >> levi.icon.json
           fi
         done
 
@@ -61,9 +69,8 @@ jobs:
         sed -i '$ s/,$//' levi.icon.json
 
         # 闭合 JSON 数组
-        echo "    ]" >> levi.icon.json
-        echo '  }' >> levi.icon.json
-        echo "]" >> levi.icon.json
+        echo "  ]" >> levi.icon.json
+        echo "}" >> levi.icon.json
 
         # 提交生成的 JSON 文件
         git config --global user.email "actions@github.com"
