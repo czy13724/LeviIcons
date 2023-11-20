@@ -93,18 +93,15 @@ jobs:
         # 移动 JSON 文件到 LeviIcons 目录
         mv -f $JSON_FILE LeviIcons
 
-        # 提交生成的 JSON 文件
-        git config --global user.email "actions@github.com"
-        git config --global user.name "GitHub Actions"
-        git add LeviIcons/$JSON_FILE
-        git commit -m "UPDATE generate levi.icon.json"
-        git push
+        # 上传 JSON 文件为 artifact
+        echo "Uploading artifact..."
+        echo "::set-output name=artifact_path::$GITHUB_WORKSPACE/$JSON_FILE"
+        echo "::set-output name=artifact_name::$JSON_FILE"
       env:
-        GITHUB_TOKEN: ${{ secrets.LEVIICONSI }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: levi.icon.json
-        path: LeviIcons
-
+        name: ${{ needs.generate-json.outputs.artifact_name }}
+        path: ${{ needs.generate-json.outputs.artifact_path }}
