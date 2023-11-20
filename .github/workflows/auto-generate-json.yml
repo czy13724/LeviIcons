@@ -98,7 +98,7 @@ jobs:
       run: |
         #!/bin/bash
         mkdir -p LeviIcons
-        mv -f levi.icons.json LeviIcons
+        mv -f levi.icons.json leviicons
         echo "::set-output name=artifact_path::LeviIcons"
 
 # 上传 JSON 文件为 artifact
