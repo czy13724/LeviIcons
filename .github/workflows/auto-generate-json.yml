@@ -76,6 +76,13 @@ jobs:
           fi
         done
 
+            # 移除最后一个逗号
+            sed -i '$s/,$//' $JSON_FILE
+
+            # 添加 JSON 文件尾部
+            echo ']' >> $JSON_FILE
+            echo '}' >> $JSON_FILE
+            
         # Remove the leading comma
         sed -i 's/^\(.\{2\}\)//' $JSON_FILE
 
@@ -91,11 +98,5 @@ jobs:
       with:
         name: levi.icon.json
         path: LeviIcons
-       
-        # 移除最后一个逗号
-        sed -i '$s/,$//' $JSON_FILE
 
-        # 添加 JSON 文件尾部
-        echo ']' >> $JSON_FILE
-        echo '}' >> $JSON_FILE
 
