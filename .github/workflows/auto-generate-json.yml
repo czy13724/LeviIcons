@@ -62,10 +62,10 @@ jobs:
     
             # Append image information to the JSON file
             echo -n ", " >> $JSON_FILE
-            echo "{" >> $JSON_FILE
+            echo "  {" >> $JSON_FILE
             echo "  \"name\": \"$FILE_NAME\"," >> $JSON_FILE
             echo "  \"Url\": \"$RAW_URL\"" >> $JSON_FILE
-            echo '},' >> $JSON_FILE
+            echo '  },' >> $JSON_FILE
           fi
         done
 
