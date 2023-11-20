@@ -91,7 +91,7 @@ jobs:
     - name: Set artifact path
       id: set-artifact-path
       run: |
-        mkdir -p LeviIcons
+        mkdir -p LevcIcons
         mv -f levi.icon.json LeviIcons
         echo "::set-output name=artifact_path::LeviIcons"
 
