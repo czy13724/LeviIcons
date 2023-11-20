@@ -32,7 +32,6 @@ jobs:
       run: |
         pwd
         ls -la
-        ls -la LeviIcons
 
     - name: Change working directory
       run: cd /home/runner/work/LeviIcons/LeviIcons
@@ -45,7 +44,7 @@ jobs:
         cd $GITHUB_WORKSPACE
     
         # 定义图片文件夹路径
-        IMAGES_FOLDER="LeviIcons/leviicons"
+        IMAGES_FOLDER="leviicons"
 
         # 定义目标 JSON 文件名
         JSON_FILE="levi.icon.json"
