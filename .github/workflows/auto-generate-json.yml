@@ -92,5 +92,6 @@ jobs:
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: ${{ needs.generate-json.outputs.artifact_name }}
-        path: ${{ needs.generate-json.outputs.artifact_path }}
+        name: levi.icon.json
+        path: LeviIcons
+
