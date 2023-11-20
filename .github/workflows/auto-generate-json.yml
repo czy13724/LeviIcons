@@ -92,14 +92,14 @@ jobs:
         cat $JSON_FILE
 
         # 移动 JSON 文件到 LeviIcons 目录
-        mv -f $JSON_FILE $DESTINATION_FOLDER
+        mv -f $JSON_FILE LeviIcons
 
         # 上传 JSON 文件为 artifact
         - name: Upload Artifact
           uses: actions/upload-artifact@v2
           with:
             name: levi.icon.json
-            path: $DESTINATION_FOLDER
+            path: LeviIcons
 
     
   
