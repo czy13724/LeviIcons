@@ -36,12 +36,12 @@ jobs:
         IMAGES_FOLDER="LeviIcons/leviicons"
 
         # 定义目标 JSON 文件名
-        JSON_FILE="levi.licons.json"
+        JSON_FILE="levi.icon.json"
 
         # 创建一个 JSON 文件头部
         echo "{" > $JSON_FILE
         echo '  "name": "Levi图标订阅",' >> $JSON_FILE
-        echo '  "description": "收集一些自己常用的图标 by @czy13724",' >> $JSON_FILE
+        echo '  "description": "收集一些自己常用的图标 by czy13724",' >> $JSON_FILE
         echo '  "icons": [' >> $JSON_FILE
 
         # 遍历图片文件夹中的所有文件
