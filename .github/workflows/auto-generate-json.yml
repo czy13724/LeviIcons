@@ -33,8 +33,10 @@ jobs:
         pwd
         ls -la
         ls -la LeviIcons
-        ls -la leviicons
+        ls -la LeviIcons/LeviIcons/leviicons
 
+    - name: Change working directory
+      run: cd LeviIcons/LeviIcons/leviicons
 
     - name: Generate JSON
       run: |
