@@ -90,7 +90,7 @@ jobs:
     - name: Set artifact path
       id: set-artifact-path
       run: |
-        echo "::set-output name=artifact_path::LeviIcons/levi.icon.json"
+        echo "::set-output name=artifact_path::LeviIcons"
         echo "::set-output name=artifact_name::levi.icon.json"
       env:
         GITHUB_TOKEN: ${{ secrets.LEVIICONSI }}
