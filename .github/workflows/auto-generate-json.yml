@@ -41,7 +41,7 @@ jobs:
         cd $GITHUB_WORKSPACE
     
         # 定义图片文件夹路径
-        IMAGES_FOLDER="leviicons"
+        IMAGES_FOLDER="LeviIcons/leviicons"
 
         # 定义目标 JSON 文件名
         JSON_FILE="levi.icon.json"
