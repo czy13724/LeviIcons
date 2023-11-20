@@ -98,11 +98,8 @@ jobs:
         - name: Set artifact path
           id: set-artifact-path
           run: |
-            if [ ! -d "LeviIcons" ]; then
-              mkdir LeviIcons
-            fi
-            cp -f levi.icon.json LeviIcons
-            echo "::set-output name=artifact_path::LeviIcons/levi.icon.json"
+            echo "::set-output name=artifact_path::$(pwd)/LeviIcons/levi.icon.json"
+
 
 
     - name: Upload Artifact
