@@ -36,7 +36,7 @@ jobs:
         IMAGES_FOLDER="LeviIcons/leviicons"
 
         # 定义目标 JSON 文件名
-        JSON_FILE="levi.icons.json"
+        JSON_FILE="levi.licons.json"
 
         # 创建一个 JSON 文件头部
         echo "{" > $JSON_FILE
