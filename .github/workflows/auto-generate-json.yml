@@ -74,13 +74,18 @@ jobs:
         echo '  ]' >> $JSON_FILE
         echo "}" >> $JSON_FILE
 
-        # 移动 JSON 文件到 LeviIcons 目录
-        mv -f $JSON_FILE LeviIcons
-
         # 提交生成的 JSON 文件
         git config --global user.email "actions@github.com"
         git config --global user.name "GitHub Actions"
-        git add LeviIcons/$JSON_FILE
+        
+        # 进入 LeviIcons 目录
+        cd LeviIcons
+        
+        # 移动 JSON 文件到 LeviIcons 目录
+        mv -f $JSON_FILE ..
+
+        # 提交生成的 JSON 文件
+        git add $JSON_FILE
         git commit -m "Generate $JSON_FILE"
         git push
       env:
