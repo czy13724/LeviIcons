@@ -98,16 +98,15 @@ jobs:
           id: set-artifact-path
           run: |
             #!/bin/bash
-            mkdir -p LeviIcons
-            mv -f levi.icon.json LeviIcons
-            echo "::set-output name=artifact_path::LeviIcons"
+            mkdir -p $DESTINATION_FOLDER
+            echo "::set-output name=artifact_path::$DESTINATION_FOLDER"
 
         # 上传 JSON 文件为 artifact
         - name: Upload Artifact
           uses: actions/upload-artifact@v2
           with:
             name: levi.icon.json
-            path: LeviIcons
+            path: $DESTINATION_FOLDER
 
     
   
