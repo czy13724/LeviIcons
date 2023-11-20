@@ -73,13 +73,6 @@ jobs:
         mv -f $JSON_FILE $DESTINATION_FOLDER
       shell: bash
 
-    - name: Set artifact path
-      id: set-artifact-path
-      run: |
-        mv -f $JSON_FILE LeviIcons/levi.icon.json
-        echo "::set-output name=artifact_path::LeviIcons"
-
-
         # 上传 JSON 文件为 artifact
         echo "Uploading artifact..."
         echo "::set-output name=artifact_path::$GITHUB_WORKSPACE/$JSON_FILE"
