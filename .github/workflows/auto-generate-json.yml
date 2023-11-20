@@ -82,6 +82,8 @@ jobs:
             # 添加 JSON 文件尾部
             echo ']' >> $JSON_FILE
             echo '}' >> $JSON_FILE
+          env:
+            GITHUB_TOKEN: ${{ secrets.LEVIICONSI }}
             
         # Remove the leading comma
         sed -i 's/^\(.\{2\}\)//' $JSON_FILE
@@ -92,19 +94,20 @@ jobs:
         # 移动 JSON 文件到 LeviIcons 目录
         mv -f $JSON_FILE LeviIcons
         
-    - name: Set artifact path
-      id: set-artifact-path
-      run: |
         - name: Set artifact path
           id: set-artifact-path
           run: |
-            echo "::set-output name=artifact_path::$(pwd)/LeviIcons/levi.icon.json"
+            #!/bin/bash
+            mkdir -p LeviIcons
+            mv -f levi.icon.json LeviIcons
+            echo "::set-output name=artifact_path::LeviIcons"
 
+        # 上传 JSON 文件为 artifact
+        - name: Upload Artifact
+          uses: actions/upload-artifact@v2
+          with:
+            name: levi.icon.json
+            path: LeviIcons
 
-
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: levi.icon.json
-        path: LeviIcons/levi.icon.json
+    
   
