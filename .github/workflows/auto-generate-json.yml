@@ -22,9 +22,6 @@ jobs:
       with:
         node-version: '16'
 
-    - name: Output GitHub Actions Runner environment
-      run: echo "GitHub Actions Runner Environment: $GITHUB_RUNNER"
-
     - name: Clear npm cache
       run: npm cache clean -f
 
