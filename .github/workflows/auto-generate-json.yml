@@ -87,7 +87,7 @@ jobs:
         mv -f $JSON_FILE LeviIcons
       
         # Set an environment variable with the path to the JSON file
-        echo "ARTIFACT_PATH=LeviIcons/levi.icon.json" >> $GITHUB_ENV
+        echo "ARTIFACT_PATH=LeviIcons" >> $GITHUB_ENV
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
