@@ -131,7 +131,7 @@ jobs:
 3. 手动运行一次检查在日志里查看是否能历遍出所有的图标raw以及是否会出现错误。
 
 #### 注意事项
-1. 已知错误有：Upload Artifact这里报错可以通过修改路径或在仓库下新建一个package.json文件解决。修改路径在echo "ARTIFACT_PATH=LEVI" >> $GITHUB_ENV这里，修改等号后的LEVI即可。
+1. 已知错误有：Upload Artifact这里报错可以通过修改路径或在仓库下新建一个package.json文件解决。修改路径在echo "ARTIFACT_PATH=LeviIcons" >> $GITHUB_ENV这里，修改等号后的LeviIcons即可。
 
  #### 免责声明
 * 项目内所涉及脚本、LOGO 仅为资源共享、学习参考之目的，不保证其合法性、正当性、准确性；切勿使用项目做任何商业用途或牟利；
