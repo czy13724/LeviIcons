@@ -64,7 +64,7 @@ jobs:
         ls -al $IMAGES_FOLDER
         # Create an empty JSON file
         echo "[]" > $JSON_FILE
-        # 创建一个 JSON 文件头部
+        # Create a JSON file header
         echo "{" > $JSON_FILE
         # Levi图标订阅可随意修改，用于图标订阅的显示名称
         echo '  "name": "Levi图标订阅",' >> $JSON_FILE
@@ -78,15 +78,15 @@ jobs:
             FILE_NAME=$(basename "$FILE_PATH")
             # 将czy13724改为自己用户名，LeviIcons改为仓库名
             RAW_URL="https://raw.githubusercontent.com/czy13724/LeviIcons/main/$FILE_PATH"
-        # 如果不是第一个图标，则在前一个图标的末尾添加逗号
+        # If not the first icons, auto-add a comma before the end of the former
           if [ "$FIRST_ITEM" = false ]; then
-        # 在前一个图标的末尾添加逗号
+        # Add a comma before the end of the former
             sed -i '$s/}$/},/' $JSON_FILE
           fi
     
             # Append image information to the JSON file
             echo -n ", " >> $JSON_FILE
-            # 将图片信息添加到 JSON 文件
+            # Add png info to JSON file
             echo '  {' >> $JSON_FILE
             echo '    "name": "'$FILE_NAME'",' >> $JSON_FILE
             echo '    "url": "'$RAW_URL'"' >> $JSON_FILE
@@ -94,10 +94,10 @@ jobs:
           fi
         done
 
-            # 移除最后一个逗号
+            # remove the last comma
             sed -i '$s/,$//' $JSON_FILE
 
-            # 添加 JSON 文件尾部
+            # Add the end of the last
             echo ']' >> $JSON_FILE
             echo '}' >> $JSON_FILE
             
