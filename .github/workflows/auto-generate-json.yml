@@ -5,14 +5,14 @@ on:
     branches:
       - main
     paths:
-      - 'LeviIcons/leviicons/**/*'
-  branch_protection_rule:
-    types: [created, deleted]
+      - 'LeviIcons/*'
   workflow_dispatch:
     inputs:
       dummy-trigger:
         description: 'Dummy trigger for manual run'
         default: 'Run workflow'
+  schedule:
+    - cron: '0 8 * * *'  # 每天的 UTC 08:00 运行
 
 jobs:
   generate-json:
