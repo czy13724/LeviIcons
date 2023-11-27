@@ -92,14 +92,13 @@ jobs:
         name: levi.icon.json
         path: ${{ env.ARTIFACT_PATH }}
 
-    - name: Push JSON to Repository
+    - name: Push to TEST Repository
       run: |
         git config user.name "${{ github.actor }}"
         git config user.email "${{ github.actor }}@users.noreply.github.com"
-        git add LeviIcons/levi.icons.json
-        git commit -m "Update levi.icons.json"
-        git push origin main
+        git add .
+        git commit -m "Add generated JSON file"
+        git push origin HEAD:main
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
     
