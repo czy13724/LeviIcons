@@ -82,9 +82,6 @@ jobs:
 
         echo "Checking generated JSON file:"
         cat $JSON_FILE
-
-        # Move the JSON file to the LeviIcons directory
-        mv -f $JSON_FILE LeviIcons
       
         # Set an environment variable with the path to the JSON file
         echo "ARTIFACT_PATH=LeviIcons" >> $GITHUB_ENV
