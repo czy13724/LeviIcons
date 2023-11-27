@@ -10,7 +10,7 @@
 基于github aciton自动生成Quantmult X图标订阅。用于将对应仓库所有的图标raw整合为一个json文件，以便Quantumult X，Surge，Loon等软件的图标订阅导入。
  #### 使用方法：
 1. 新建一个仓库作为图床，并新建一个文件夹用于存储图片，可随意命名（~~不建议使用中文~~）。   
-2. 点击`action`并创建一个工作流（workflow）,将下方代码放入并按照说明将LEVI和levi进行替换
+2. 点击`action`并创建一个工作流（workflow）,将下方代码放入并按照说明进行替换
 ```shell
 name: Generate Image JSON
 
