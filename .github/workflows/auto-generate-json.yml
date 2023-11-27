@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - '**/LeviIcons/leviicons/**'
+      - 'LeviIcons/leviicons/**/*'
   workflow_dispatch:
     inputs:
       dummy-trigger:
