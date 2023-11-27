@@ -27,6 +27,9 @@ on:
         description: 'Dummy trigger for manual run'
         default: 'Run workflow'
 
+  schedule:
+    - cron: '0 8 * * *'  # 每天的 UTC 08:00 运行
+
 jobs:
   generate-json:
     runs-on: ubuntu-latest
@@ -114,7 +117,7 @@ jobs:
         name: levi.icon.json
         path: ${{ env.ARTIFACT_PATH }}
 
-    - name: Push to TEST Repository
+    - name: Push to LEVI Repository
       run: |
         git config user.name "${{ github.actor }}"
         git config user.email "${{ github.actor }}@users.noreply.github.com"
