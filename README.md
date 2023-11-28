@@ -3,7 +3,7 @@
 #### 简介
 作者：[Levi](https://github.com/czy13724)
 更新日期：2023.11.27
-仓库地址：[LeviIcons](https://github.com/czy13724/LeviIcons)
+Levi图标仓库地址：[LeviIcons](https://github.com/czy13724/LeviIcons)
 
 如果你觉得好用的话，不妨点个✨star，支持一下作者～
 #### 功能
