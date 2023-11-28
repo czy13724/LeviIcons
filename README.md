@@ -19,8 +19,8 @@ on:
     branches:
       - main
     paths:
-    # 将下面的LeviIcons替换为自己的仓库名
-      - 'LeviIcons/*'
+    # 将下面的LEVI替换为自己的仓库名
+      - 'LEVI/*'
   workflow_dispatch:
     inputs:
       dummy-trigger:
@@ -52,12 +52,12 @@ jobs:
         ls -la
     - name: Generate JSON
       run: |
-         # 将下面的leviicons替换为自己存储图片的文件名
-        IMAGES_FOLDER="leviicons"
+         # 将下面的levi替换为自己存储图片的文件名
+        IMAGES_FOLDER="levi"
         # 将下面的levi.icons.json替换为要生成的图标订阅名称，json格式
         JSON_FILE="levi.icons.json"
-        # 将下面的LeviIcons替换为自己的仓库名
-        DESTINATION_FOLDER="LeviIcons"
+        # 将下面的LEVI替换为自己的仓库名
+        DESTINATION_FOLDER="LEVI"
         echo "Checking current directory:"
         pwd
         echo "Listing files in leviicons:"
@@ -66,9 +66,9 @@ jobs:
         echo "[]" > $JSON_FILE
         # Create a JSON file header
         echo "{" > $JSON_FILE
-        # Levi图标订阅可随意修改，用于图标订阅的显示名称
+        # 双引号里Levi图标订阅可随意修改，用于图标订阅的显示名称
         echo '  "name": "Levi图标订阅",' >> $JSON_FILE
-        # description内容可随意修改，用于图标订阅描述展示
+        # 双引号里description内容可随意修改，用于图标订阅描述展示
         echo '  "description": "收集一些自己常用的图标 by @czy13724",' >> $JSON_FILE
         echo '  "icons": [' >> $JSON_FILE
         
@@ -76,8 +76,8 @@ jobs:
         for FILE_PATH in $IMAGES_FOLDER/*; do
           if [ -f "$FILE_PATH" ]; then
             FILE_NAME=$(basename "$FILE_PATH")
-            # 将czy13724改为自己用户名，LeviIcons改为仓库名
-            RAW_URL="https://raw.githubusercontent.com/czy13724/LeviIcons/main/$FILE_PATH"
+            # 将czy13724改为自己用户名，LEVI改为仓库名
+            RAW_URL="https://raw.githubusercontent.com/czy13724/LEVI/main/$FILE_PATH"
         # If not the first icons, auto-add a comma before the end of the former
           if [ "$FIRST_ITEM" = false ]; then
         # Add a comma before the end of the former
@@ -108,7 +108,8 @@ jobs:
         cat $JSON_FILE
       
         # Set an environment variable with the path to the JSON file
-        echo "ARTIFACT_PATH=LeviIcons" >> $GITHUB_ENV
+        #下方LEVI改为自己仓库名
+        echo "ARTIFACT_PATH=LEVI" >> $GITHUB_ENV
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
@@ -128,7 +129,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
 ```
-3. 手动运行一次检查在日志里查看是否能历遍出所有的图标raw以及是否会出现错误。
+3. 手动运行一次检查在日志Generate JSON这一栏里查看是否能历遍出所有的图标raw以及是否会出现其他错误。
 
 #### 注意事项
 1. 已知错误有：Upload Artifact这里报错可以通过修改路径或在仓库下新建一个package.json文件解决。修改路径在echo "ARTIFACT_PATH=LeviIcons" >> $GITHUB_ENV这里，修改等号后的LeviIcons即可。
