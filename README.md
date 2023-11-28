@@ -9,6 +9,7 @@ Levi图标仓库地址：[LeviIcons](https://github.com/czy13724/LeviIcons)
 #### 功能
 基于github action自动生成Quantmult X图标订阅。用于将对应仓库所有的图标raw整合为一个json文件，以便Quantumult X，Surge，Loon等软件的图标订阅导入。
  #### 使用方法：
+⚠️：以下LEVI为仓库名称，levi为该仓库下存放图片的文件夹名称。
 1. 新建一个仓库作为图床，并新建一个文件夹用于存储图片，可随意命名（~~不建议使用中文~~）。   
 2. 点击`action`并创建一个工作流（workflow）,将下方代码放入并按照说明进行替换
 ```shell
@@ -16,19 +17,17 @@ name: Generate Image JSON
 
 on:
   push:
-    branches:
-      - main
     paths:
-    # 将下面的LEVI替换为自己的仓库名
-      - 'LEVI/*'
+      # 将下面的levi替换为自己存储图片的文件夹名称
+      - 'levi/**' 
+  pull_request:
+    paths:
+      - 'levi/**' 
   workflow_dispatch:
     inputs:
       dummy-trigger:
         description: 'Dummy trigger for manual run'
         default: 'Run workflow'
-
-  schedule:
-    - cron: '0 1 * * *'  # 每天的 UTC+8 09:00 运行
 
 jobs:
   generate-json:
