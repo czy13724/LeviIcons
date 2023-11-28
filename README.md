@@ -41,7 +41,7 @@ jobs:
         node-version: '16'
 
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4.1.1
 
     - name: Display Node.js version
       run: node --version
@@ -60,7 +60,8 @@ jobs:
         DESTINATION_FOLDER="LEVI"
         echo "Checking current directory:"
         pwd
-        echo "Listing files in leviicons:"
+        #将下面的levi替换为自己存储图片的文件名
+        echo "Listing files in levi:"
         ls -al $IMAGES_FOLDER
         # Create an empty JSON file
         echo "[]" > $JSON_FILE
@@ -86,7 +87,7 @@ jobs:
     
             # Append image information to the JSON file
             echo -n ", " >> $JSON_FILE
-            # Add png info to JSON file
+            # Add image info to JSON file
             echo '  {' >> $JSON_FILE
             echo '    "name": "'$FILE_NAME'",' >> $JSON_FILE
             echo '    "url": "'$RAW_URL'"' >> $JSON_FILE
@@ -123,7 +124,7 @@ jobs:
         git config user.name "${{ github.actor }}"
         git config user.email "${{ github.actor }}@users.noreply.github.com"
         git add .
-        git commit -m "Add generated JSON file"
+        git commit -m "Add generated image JSON file"
         git push origin HEAD:main
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -132,7 +133,7 @@ jobs:
 3. 手动运行一次检查在日志Generate JSON这一栏里查看是否能历遍出所有的图标raw以及是否会出现其他错误。
 
 #### 注意事项
-1. 已知错误有：Upload Artifact这里报错可以通过修改路径或在仓库下新建一个package.json文件解决。修改路径在echo "ARTIFACT_PATH=LeviIcons" >> $GITHUB_ENV这里，修改等号后的LeviIcons即可。
+1. 已知错误有：Upload Artifact这里报错可以通过修改路径或在仓库下新建一个package.json文件解决。修改路径在echo "ARTIFACT_PATH=LEVI" >> $GITHUB_ENV这里，修改等号后的LEVI即可。
 
  #### 免责声明
 * 项目内所涉及脚本、LOGO 仅为资源共享、学习参考之目的，不保证其合法性、正当性、准确性；切勿使用项目做任何商业用途或牟利；
