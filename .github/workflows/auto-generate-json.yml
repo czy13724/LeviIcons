@@ -2,17 +2,16 @@ name: Generate Image JSON
 
 on:
   push:
-    branches:
-      - main
     paths:
-      - 'LeviIcons/*'
+      - 'leviicons/**' # 监视 leviicons 文件夹及其子文件夹下的内容
+  pull_request:
+    paths:
+      - 'leviicons/**' # 监视 leviicons 文件夹及其子文件夹下的内容
   workflow_dispatch:
     inputs:
       dummy-trigger:
         description: 'Dummy trigger for manual run'
         default: 'Run workflow'
-  schedule:
-    - cron: '0 1 * * *'  # 每天的 UTC+8 09:00 运行
 
 jobs:
   generate-json:
