@@ -6,6 +6,7 @@
 Levi图标仓库地址：[LeviIcons](https://github.com/czy13724/LeviIcons)
 
 如果你觉得好用的话，不妨点个✨star，支持一下作者～
+建议去TEST下载使用第二版本，该版本格式仅测试qx可用，导入其他软件可能有语法错误。
 #### 功能
 基于github action自动生成Quantmult X图标订阅。用于将对应仓库所有的图标raw整合为一个json文件，以便Quantumult X，Surge，Loon等软件的图标订阅导入。
  #### 使用方法：
