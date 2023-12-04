@@ -3,10 +3,10 @@ name: Image Workflow
 on:
   push:
     paths:
-      - 'test/**' # 监视 test 文件夹及其子文件夹下的内容
+      - 'leviicons/**' # 监视 leviicons 文件夹及其子文件夹下的内容
   pull_request:
     paths:
-      - 'test/**' # 监视 test 文件夹及其子文件夹下的内容
+      - 'leviicons/**' # 监视 leviicons 文件夹及其子文件夹下的内容
   workflow_dispatch:
 
 jobs:
@@ -37,14 +37,14 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: json-artifact
-        path: ${{ github.workspace }}/test.icons.json
+        path: ${{ github.workspace }}/levi.icons.json
 
-    - name: Push to TEST Repository
+    - name: Push to LeviIcons Repository
       run: |
         git config user.name "${{ github.actor }}"
         git config user.email "${{ github.actor }}@users.noreply.github.com"
         git add .
-        git commit -m "Add generated JSON file"
+        git commit -m "Add generated image JSON file"
         git push origin HEAD:main
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
