@@ -4,7 +4,7 @@ Everyone is best! To try, to make it! U‘ll get some sense of achievements.
 #### 简介
 作者：[Levi](https://github.com/czy13724)
 
-Levi脚本仓库：[Levi](https://github.com/czy13724/quantmultx)
+Levi脚本仓库：[Levi Scripts](https://github.com/czy13724/quantmultx)
 
 Levi工作流仓库地址：[Levi Workflow](https://github.com/czy13724/TEST/tree/main/.github)
 
