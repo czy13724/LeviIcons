@@ -1,5 +1,5 @@
 ## 该仓库说明
-Everyone is best! To try, to make it! U‘ll get some sense of achievements.
+Everyone is best! To try, to make it! U‘ll get some senses of achievement.
 
 #### 简介
 作者：[Levi](https://github.com/czy13724)
