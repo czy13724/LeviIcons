@@ -12,6 +12,8 @@ Levi图标仓库地址：[LeviIcons](https://github.com/czy13724/LeviIcons)
 
 请用Quantumult X, Surge, Loon等App添加图标订阅 [levi.icons.json](https://raw.githubusercontent.com/czy13724/LeviIcons/main/levi.icons.json)
 
+🎉[新增iOS快捷指令](https://github.com/czy13724/LeviIcons/raw/main/%5BiOS%E5%BF%AB%E6%8D%B7%E6%8C%87%E4%BB%A4%5D%E4%B8%80%E9%94%AE%E5%88%B6%E4%BD%9C%E4%B8%8A%E4%BC%A0%E5%9B%BE%E6%A0%87%E5%88%B0github.shortcut) 使用苹果系列支持快捷指令的产品，按照指令界面填写即可使用。
+
 
 如果你觉得好用的话，不妨点个✨star，支持一下作者～
 
