@@ -3,10 +3,6 @@
   "description": "收集一些自己常用的图标,欢迎大家引用,如您有新的软件图标可以在issue中说明.",
   "icons": [
     {
-      "name": "AppleNews.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/AppleNews.png"
-    },
-    {
       "name": "instagram1.png",
       "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/instagram1.png"
     },
