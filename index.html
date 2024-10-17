@@ -5,12 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Levi图标订阅 - 图标展示</title>
     <!-- 头部自定义内容 -->
-    <link type='text/css' rel="stylesheet" href="https://npm.elemecdn.com/font6pro@6.0.1/css/fontawesome.min.css"
-        media='all'>
-    <link href="https://npm.elemecdn.com/font6pro@6.0.1/css/all.min.css" rel="stylesheet">
-    <script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
-    <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+<!-- Font6，自定义底部使用和看板娘使用的图标和字体文件-->
+<link type='text/css' rel="stylesheet" href="https://npm.elemecdn.com/font6pro@6.0.1/css/fontawesome.min.css"
+  media='all'>
+<link href="https://npm.elemecdn.com/font6pro@6.0.1/css/all.min.css" rel="stylesheet">
+
+<script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script>
+
+<!-- 看板娘 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+<script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
     <style>
         :root {
             --bg-color: #f0f0f0;
@@ -54,67 +58,55 @@
             background-attachment: fixed;  /* 固定背景 */
             transition: background-image 0.5s, background-color 0.5s;
         }
-
-
-
-
-        
+        /* 其他样式不变 */
         .container {
             max-width: 1200px;
             margin: 0 auto;
         }
-
         h1 {
             text-align: center;
         }
-
         #description {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 20px; /* 为描述与搜索框之间添加间距 */
         }
-
         .controls {
             display: flex;
             justify-content: space-between;
             margin-bottom: 20px;
         }
-
         #search {
             flex-grow: 1;
             margin-right: 10px;
             padding: 5px;
         }
-
         #categoryFilter {
             padding: 5px;
         }
-
-        .download-all, .download-speed {
-            margin-left: 10px;
-            padding: 5px 10px;
+        .download-all {
+            margin-left: 10px; /* 添加间距 */
+            padding: 5px 10px; /* 按钮大小一致 */
             background-color: #4CAF50;
             color: white;
-            border: none;
+            border: none; /* 去掉边框 */
             border-radius: 5px;
             cursor: pointer;
         }
-
         .icon-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
             gap: 20px;
             padding: 20px;
         }
-
         .icon-item {
             background-color: var(--item-bg);
             border-radius: 8px;
             padding: 10px;
             text-align: center;
             box-shadow: 0 2px 4px var(--shadow);
+            transition: background-color 0.3s, box-shadow 0.3s;
             position: relative;
         }
-
         .icon-item img {
             max-width: 64px;
             height: auto;
@@ -122,31 +114,27 @@
             display: block;
             margin: 0 auto;
         }
-
         .icon-item p {
             margin: 10px 0;
             font-size: 12px;
-            color: var(--name-color);
+            color: var(--name-color); /* 绑定名称颜色到CSS变量 */
         }
-
         .icon-actions {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
+            flex-direction: column; /* 按钮上下叠放 */
+            align-items: center; /* 居中对齐 */
+            gap: 5px; /* 按钮间距 */
         }
-
         .icon-actions button {
             background-color: #4CAF50;
-            border: none;
+            border: none; /* 去掉边框 */
             padding: 5px 10px;
             font-size: 12px;
             color: white;
             cursor: pointer;
             border-radius: 3px;
-            width: 100%;
+            width: 100%; /* 按钮宽度一致 */
         }
-
         .modal {
             display: none;
             position: fixed;
@@ -159,86 +147,87 @@
             justify-content: center;
             align-items: center;
         }
-
         .modal-content {
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
             text-align: center;
         }
-
         .modal-content img {
             max-width: 100%;
             height: auto;
         }
+            /* 关闭按钮的样式，放置在模态框右上角 */
+    #closeModal {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        font-weight: bold;
+        color: var(--close-btn-color); /* 绑定关闭按钮的颜色 */
+        background-color: rgba(255, 255, 255, 0.7); /* 增加背景颜色，保证在夜间模式下可见 */
+        padding: 5px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: color 0.3s, background-color 0.3s;
+    }
 
-        #closeModal {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 20px;
-            font-weight: bold;
-            color: var(--close-btn-color);
-            background-color: rgba(255, 255, 255, 0.7);
-            padding: 5px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: color 0.3s, background-color 0.3s;
-        }
+    #closeModal:hover {
+        color: #fff;
+        background-color: var(--close-btn-color);
+    }
 
-        #closeModal:hover {
-            color: #fff;
-            background-color: var(--close-btn-color);
-        }
+    /* 暗黑模式按钮 */
+    #darkModeToggle {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        padding: 5px 10px;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
 
-        #darkModeToggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 5px 10px;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .footer {
-            position: fixed;
-            bottom: 10px;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            font-size: 14px;
-            color: var(--text-color);
-        }
-
-        .footer a {
-            color: var(--text-color);
-            text-decoration: none;
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
-        }
+    /* 新增的底部样式 */
+    .footer {
+        position: fixed;
+        bottom: 10px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 14px;
+        color: var(--text-color);
+    }
+    
+    .footer a {
+        color: var(--text-color);
+        text-decoration: none;
+    }
+    
+    .footer a:hover {
+        text-decoration: underline;
+    }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Levi图标订阅</h1>
-        <div id="description"></div>
+        <div id="description"></div> <!-- 描述部分 -->
         <button id="darkModeToggle">切换暗黑模式</button>
         <div class="controls">
             <input type="text" id="search" placeholder="搜索图标 (Search Icons)..." style="font-style: italic;">
             <select id="categoryFilter">
                 <option value="">所有分类</option>
             </select>
-            <button class="download-all" id="downloadAll">下载所有图标</button>
-            <button class="download-speed" id="downloadSpeedAll">jsdelivr加速下载</button> <!-- 新增按钮 -->
+            <button class="download-all" id="downloadAll">下载所有图标</button> <!-- 下载所有图标按钮放在右边 -->
+            <button class="download-speed" id="downloadSpeedAll">jsdelivr加速下载</button>            
         </div>
         <div id="iconGrid" class="icon-grid"></div>
     </div>
 
+    <!-- 模态框，用于显示图标大图 -->
     <div id="iconModal" class="modal">
         <div class="modal-content">
             <span id="closeModal" style="cursor:pointer;">&times;</span>
@@ -246,26 +235,47 @@
         </div>
     </div>
 
+    <!-- 添加底部版权信息 -->
     <div class="footer">
         Powered by <a href="https://github.com/czy13724" target="_blank" style="font-weight: bold; color: #007bff;">Levi</a> &copy; 2024
     </div>
+    
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
     <script>
         let icons = [];
-        let data = {};
 
+        // 从JSON文件加载图标数据
         fetch('levi.icons.json')
             .then(response => response.json())
-            .then(jsonData => {
-                data = jsonData;
+            .then(data => {
                 document.title = data.name;
-                document.getElementById('description').textContent = data.description;
+                document.getElementById('description').textContent = data.description; // 更新描述
                 icons = data.icons;
                 renderIcons(icons);
                 updateCategoryFilter(icons);
             })
             .catch(error => console.error('Error loading icons:', error));
+
+        function renderIcons(iconsToRender) {
+            const iconGrid = document.getElementById('iconGrid');
+            iconGrid.innerHTML = '';
+            iconsToRender.forEach(icon => {
+                const iconItem = document.createElement('div');
+                iconItem.className = 'icon-item';
+                // 只保留名称部分（去掉扩展名）
+                const iconName = icon.name.split('.')[0];
+                iconItem.innerHTML = `
+                    <img src="${icon.url}" alt="${icon.name}" onclick="openModal('${icon.url}')">
+                    <p>${iconName}</p>
+                    <div class="icon-actions">
+                        <button onclick="downloadIcon('${icon.url}', '${icon.name}')">下载</button>
+                        <button onclick="copyLink('${icon.url}')">复制链接</button>
+                    </div>
+                `;
+                iconGrid.appendChild(iconItem);
+            });
+        }
 
         function renderIcons(iconsToRender) {
             const iconGrid = document.getElementById('iconGrid');
@@ -284,11 +294,11 @@
                 `;
                 iconGrid.appendChild(iconItem);
             });
-        }
+        }        
 
         function updateCategoryFilter(icons) {
-            const categories = [...new Set(icons.map(icon => icon.category))];
             const categoryFilter = document.getElementById('categoryFilter');
+            const categories = [...new Set(icons.map(icon => icon.category).filter(Boolean))];
             categories.forEach(category => {
                 const option = document.createElement('option');
                 option.value = category;
@@ -297,30 +307,32 @@
             });
         }
 
-        function openModal(imageUrl) {
-            const modal = document.getElementById('iconModal');
-            const modalImage = document.getElementById('modalImage');
-            modal.style.display = 'flex';
-            modalImage.src = imageUrl;
-        }
-
-        document.getElementById('closeModal').addEventListener('click', () => {
-            document.getElementById('iconModal').style.display = 'none';
+        // 搜索功能
+        document.getElementById('search').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredIcons = icons.filter(icon => 
+                icon.name.toLowerCase().includes(searchTerm)
+            );
+            renderIcons(filteredIcons);
         });
 
+        // 分类过滤
+        document.getElementById('categoryFilter').addEventListener('change', (e) => {
+            const category = e.target.value;
+            const filteredIcons = category 
+                ? icons.filter(icon => icon.category === category)
+                : icons;
+            renderIcons(filteredIcons);
+        });
+
+        // 下载单个图标
         function downloadIcon(url, name) {
-            fetch(url)
-                .then(response => response.blob())
-                .then(blob => {
-                    const a = document.createElement('a');
-                    const objectUrl = URL.createObjectURL(blob);
-                    a.href = objectUrl;
-                    a.download = name;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                })
-                .catch(error => console.error('Error downloading icon:', error));
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = name;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
         }
 
         function copyLink(url) {
@@ -331,22 +343,28 @@
             document.execCommand('copy');
             document.body.removeChild(tempInput);
             alert('加速链接已复制到剪贴板: ' + url);
+        }        
+
+        // 复制图标链接
+        function copyLink(url) {
+            navigator.clipboard.writeText(url).then(() => {
+                alert('图标链接已复制');
+            });
         }
 
-        // 切换暗黑模式
-        function updateDarkModeButton() {
-            const isDarkMode = document.body.classList.contains('dark-mode');
-            document.getElementById('darkModeToggle').textContent = isDarkMode ? '切换日间模式' : '切换暗黑模式';
+        // 图标大图预览
+        function openModal(url) {
+            const modal = document.getElementById('iconModal');
+            const modalImage = document.getElementById('modalImage');
+            modal.style.display = 'flex';
+            modalImage.src = url;
         }
 
-        document.getElementById('darkModeToggle').addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            updateDarkModeButton();
+        document.getElementById('closeModal').addEventListener('click', () => {
+            document.getElementById('iconModal').style.display = 'none';
         });
 
-        updateDarkModeButton();
-
-        // 下载所有图标功能
+        // 下载所有图标
         document.getElementById('downloadAll').addEventListener('click', () => {
             const zip = new JSZip();
             const promises = icons.map(icon => 
@@ -392,6 +410,19 @@
             a.click();
             document.body.removeChild(a);
         });
+
+        // 切换暗黑模式
+        function updateDarkModeButton() {
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            document.getElementById('darkModeToggle').textContent = isDarkMode ? '切换日间模式' : '切换暗黑模式';
+        }
+
+        document.getElementById('darkModeToggle').addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            updateDarkModeButton();
+        });
+
+        updateDarkModeButton();        
     </script>
 </body>
 </html>
