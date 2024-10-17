@@ -58,6 +58,7 @@
             background-attachment: fixed;  /* 固定背景 */
             transition: background-image 0.5s, background-color 0.5s;
         }
+
         /* 其他样式不变 */
         .container {
             max-width: 1200px;
@@ -222,7 +223,6 @@
                 <option value="">所有分类</option>
             </select>
             <button class="download-all" id="downloadAll">下载所有图标</button> <!-- 下载所有图标按钮放在右边 -->
-            <button class="download-speed" id="downloadSpeedAll">jsdelivr加速下载</button>            
         </div>
         <div id="iconGrid" class="icon-grid"></div>
     </div>
@@ -277,25 +277,6 @@
             });
         }
 
-        function renderIcons(iconsToRender) {
-            const iconGrid = document.getElementById('iconGrid');
-            iconGrid.innerHTML = '';
-            iconsToRender.forEach(icon => {
-                const iconItem = document.createElement('div');
-                iconItem.className = 'icon-item';
-                const iconName = icon.name.split('.')[0];
-                iconItem.innerHTML = `
-                    <img src="${icon.url.replace('raw.githubusercontent.com', 'cdn.jsdelivr.net/gh')}" alt="${icon.name}" onclick="openModal('${icon.url.replace('raw.githubusercontent.com', 'cdn.jsdelivr.net/gh')}')">
-                    <p>${iconName}</p>
-                    <div class="icon-actions">
-                        <button onclick="downloadIcon('${icon.url}', '${icon.name}')">下载</button>
-                        <button onclick="copyLink('${icon.url.replace('raw.githubusercontent.com', 'cdn.jsdelivr.net/gh')}')">复制加速链接</button>
-                    </div>
-                `;
-                iconGrid.appendChild(iconItem);
-            });
-        }        
-
         function updateCategoryFilter(icons) {
             const categoryFilter = document.getElementById('categoryFilter');
             const categories = [...new Set(icons.map(icon => icon.category).filter(Boolean))];
@@ -334,16 +315,6 @@
             a.click();
             document.body.removeChild(a);
         }
-
-        function copyLink(url) {
-            const tempInput = document.createElement('input');
-            tempInput.value = url;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
-            alert('加速链接已复制到剪贴板: ' + url);
-        }        
 
         // 复制图标链接
         function copyLink(url) {
@@ -387,30 +358,6 @@
             });
         });
 
-        // 下载加速后的合集文件
-        document.getElementById('downloadSpeedAll').addEventListener('click', () => {
-            const speedIcons = icons.map(icon => ({
-                ...icon,
-                url: icon.url.replace('raw.githubusercontent.com', 'cdn.jsdelivr.net/gh')
-            }));
-
-            const speedFileContent = {
-                ...data,
-                icons: speedIcons
-            };
-
-            const blob = new Blob([JSON.stringify(speedFileContent, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            const originalFileName = 'levi.icons.json';
-            const newFileName = originalFileName.replace('.json', '(speed).json');
-            a.href = url;
-            a.download = newFileName;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        });
-
         // 切换暗黑模式
         function updateDarkModeButton() {
             const isDarkMode = document.body.classList.contains('dark-mode');
@@ -422,7 +369,7 @@
             updateDarkModeButton();
         });
 
-        updateDarkModeButton();        
+        updateDarkModeButton();    
     </script>
 </body>
 </html>
