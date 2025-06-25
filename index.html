@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Levi 图标订阅</title>
   <link rel="stylesheet" href="https://npm.elemecdn.com/font6pro@6.0.1/css/all.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css" />
-  <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+  <link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css" />
+  <script src="https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
   <style>
     :root {
       --bg-color: #f0f0f0;
@@ -14,8 +14,8 @@
       --item-bg: #fff;
       --shadow: rgba(0,0,0,0.1);
       --name-color: black;
-      --light-bg-image: url('https://cdn.jsdelivr.net/gh/czy13724/czy13724.github.io@master/img/bg/image_20.jpg');
-      --dark-bg-image: url('https://cdn.jsdelivr.net/gh/czy13724/czy13724.github.io@master/img/bg/image_32.jpg');
+      --light-bg-image: url('https://fastly.jsdelivr.net/gh/czy13724/czy13724.github.io@master/img/bg/image_20.jpg');
+      --dark-bg-image: url('https://fastly.jsdelivr.net/gh/czy13724/czy13724.github.io@master/img/bg/image_32.jpg');
     }
     body.dark-mode {
       --bg-color: #333;
@@ -125,7 +125,7 @@
   <script>
     let icons = [];
     const RAW_PREFIX = "https://raw.githubusercontent.com/";
-    const CDN_PREFIX = "https://cdn.jsdelivr.net/gh/";
+    const CDN_PREFIX = "https://fastly.jsdelivr.net/gh/";
 
     fetch('levi.icons.json')
       .then(res => res.json())
