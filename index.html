@@ -98,6 +98,27 @@
       text-align: center; font-size: 14px; color: var(--text-color);
     }
     .footer a { color: var(--text-color); font-weight: bold; text-decoration: none; }
+    
+    /* 加载状态样式 */
+    .loading {
+      text-align: center;
+      padding: 20px;
+      font-size: 16px;
+    }
+    .error {
+      color: #ff4444;
+      text-align: center;
+      padding: 20px;
+    }
+    .retry-btn {
+      background-color: #ff6b6b;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
@@ -110,6 +131,7 @@
       <select id="categoryFilter"><option value="">所有分类</option></select>
       <button class="download-all" id="downloadAll">下载所有图标</button>
     </div>
+    <div id="loadingStatus" class="loading">正在加载图标数据...</div>
     <div id="iconGrid" class="icon-grid"></div>
   </div>
   <div id="iconModal" class="modal">
@@ -126,10 +148,64 @@
     let icons = [];
     const RAW_PREFIX = "https://raw.githubusercontent.com/";
     const CDN_PREFIX = "https://fastly.jsdelivr.net/gh/";
+    const MAX_RETRIES = 5;
+    const RETRY_DELAY = 2000; // 2秒
 
-    fetch('levi.icons.json')
-      .then(res => res.json())
-      .then(data => {
+    // 带重试机制的 fetch 函数
+    async function fetchWithRetry(url, retries = MAX_RETRIES, delay = RETRY_DELAY) {
+      for (let i = 0; i <= retries; i++) {
+        try {
+          console.log(`尝试加载数据 (第${i + 1}次)...`);
+          updateLoadingStatus(`正在加载图标数据... (第${i + 1}次尝试)`);
+          
+          // 添加随机参数避免缓存
+          const cacheBuster = `?t=${Date.now()}&r=${Math.random()}`;
+          const response = await fetch(url + cacheBuster);
+          
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          }
+          
+          const data = await response.json();
+          console.log('数据加载成功!');
+          return data;
+        } catch (error) {
+          console.warn(`第${i + 1}次尝试失败:`, error.message);
+          
+          if (i === retries) {
+            // 最后一次尝试也失败了
+            throw new Error(`加载失败，已重试${retries + 1}次: ${error.message}`);
+          }
+          
+          // 等待后重试
+          updateLoadingStatus(`加载失败，${delay/1000}秒后重试... (${i + 1}/${retries + 1})`);
+          await new Promise(resolve => setTimeout(resolve, delay));
+          
+          // 增加延迟时间（指数退避）
+          delay = Math.min(delay * 1.5, 10000);
+        }
+      }
+    }
+
+    function updateLoadingStatus(message) {
+      const loadingEl = document.getElementById('loadingStatus');
+      loadingEl.textContent = message;
+    }
+
+    function showError(message) {
+      const loadingEl = document.getElementById('loadingStatus');
+      loadingEl.innerHTML = `
+        <div class="error">
+          <div>❌ ${message}</div>
+          <button class="retry-btn" onclick="loadIconData()">重新加载</button>
+        </div>
+      `;
+    }
+
+    async function loadIconData() {
+      try {
+        const data = await fetchWithRetry('levi.icons.json');
+        
         document.title = data.name;
         document.getElementById('description').textContent = data.description;
         icons = data.icons.map(icon => {
@@ -139,9 +215,22 @@
           }
           return icon;
         });
+        
+        // 隐藏加载状态
+        document.getElementById('loadingStatus').style.display = 'none';
+        
         renderIcons(icons);
         updateCategoryFilter(icons);
-      });
+        
+        console.log(`成功加载 ${icons.length} 个图标`);
+      } catch (error) {
+        console.error('最终加载失败:', error);
+        showError(error.message);
+      }
+    }
+
+    // 页面加载时开始获取数据
+    loadIconData();
 
     function renderIcons(data) {
       const grid = document.getElementById('iconGrid');
@@ -151,7 +240,7 @@
         el.className = 'icon-item';
         const name = icon.name.split('.')[0];
         el.innerHTML = `
-          <img src="${icon.url}" onclick="openModal('${icon.url}')">
+          <img src="${icon.url}" onclick="openModal('${icon.url}')" onerror="this.style.opacity=0.5">
           <p>${name}</p>
           <div class="icon-actions">
             <button onclick="downloadIcon('${icon.url}', '${icon.name}')">下载</button>
@@ -204,6 +293,11 @@
     };
 
     document.getElementById('downloadAll').onclick = () => {
+      if (icons.length === 0) {
+        alert('没有可下载的图标');
+        return;
+      }
+      
       const zip = new JSZip();
       Promise.all(icons.map(icon => fetch(icon.url).then(r => r.blob().then(b => zip.file(icon.name, b)))))
         .then(() => zip.generateAsync({type:"blob"}))
@@ -213,6 +307,10 @@
           a.download = "levi-icons.zip";
           document.body.appendChild(a);
           a.click(); document.body.removeChild(a);
+        })
+        .catch(error => {
+          console.error('下载失败:', error);
+          alert('下载失败，请稍后重试');
         });
     };
 
