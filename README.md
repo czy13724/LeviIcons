@@ -10,7 +10,7 @@ Levi工作流仓库地址：[Levi Workflow](https://github.com/czy13724/TEST/tre
 
 Levi图标仓库地址：[LeviIcons](https://github.com/czy13724/LeviIcons)
 
-Levi图标查找------>>>[Levi_Searching](https://icons.levifree.news)
+Levi图标查找------>>>[Levi_Searching](https://levibb.netlib.re)
 
 请用Quantumult X, Surge, Loon等App添加图标订阅 [levi.icons.json](https://raw.githubusercontent.com/czy13724/LeviIcons/main/levi.icons.json)
 
@@ -19,7 +19,7 @@ Levi图标查找------>>>[Levi_Searching](https://icons.levifree.news)
 
 如果你觉得好用的话，不妨点个✨star，支持一下作者～
 
-该仓库下所有内容仅允许下载个人使用，严禁拉库，该仓库下所有内容的使用说明现已移动至[博客](https://levifree.tech/)，如有需求可去博客内寻找。
+该仓库下所有内容仅允许下载个人使用，严禁拉库，该仓库下所有内容的使用说明现已移动至[博客](http://levifree.dpdns.org)，如有需求可去博客内寻找。
 
 
 
