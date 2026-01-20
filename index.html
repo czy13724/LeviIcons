@@ -2,11 +2,56 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>Levi 图标订阅</title>
-  <link rel="stylesheet" href="https://npm.elemecdn.com/font6pro@6.0.1/css/all.min.css" />
-  <link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css" />
-  <script src="https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+  
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9823824864995295"
+     crossorigin="anonymous"></script>
+  
+  <script>
+    // 获取最佳 CDN 前缀
+    function getBestCDN() {
+      const lastCDN = localStorage.getItem('lastSuccessfulCDN');
+      if (lastCDN) {
+        if (lastCDN.includes('cdn.jsdelivr.net')) return 'https://cdn.jsdelivr.net/';
+        if (lastCDN.includes('fastly.jsdelivr.net')) return 'https://fastly.jsdelivr.net/';
+        if (lastCDN.includes('gcore.jsdelivr.net')) return 'https://gcore.jsdelivr.net/';
+        if (lastCDN.includes('testingcf.jsdelivr.net')) return 'https://testingcf.jsdelivr.net/';
+        if (lastCDN.includes('cdn.jsdmirror.com')) return 'https://cdn.jsdmirror.com/';
+      }
+      return 'https://fastly.jsdelivr.net/';
+    }
+    
+    const CDN = getBestCDN();
+    
+    // --- 动态设置 Favicon ---
+    const favicon = document.createElement('link');
+    favicon.rel = 'icon';
+    favicon.href = CDN + 'gh/czy13724/LeviIcons@main/profile.jpg'; 
+    document.head.appendChild(favicon);
+
+    // 动态加载 CSS
+    const css1 = document.createElement('link');
+    css1.rel = 'stylesheet';
+    css1.href = 'https://npm.elemecdn.com/font6pro@6.0.1/css/all.min.css';
+    document.head.appendChild(css1);
+    
+    const css2 = document.createElement('link');
+    css2.rel = 'stylesheet';
+    css2.href = CDN + 'npm/font-awesome/css/font-awesome.min.css';
+    document.head.appendChild(css2);
+    
+    // 动态加载 live2d (仅在非移动端加载)
+    if (window.innerWidth > 768) {
+      const live2d = document.createElement('script');
+      live2d.src = CDN + 'gh/stevenjoezhang/live2d-widget@latest/autoload.js';
+      document.head.appendChild(live2d);
+    }
+    
+    // 设置背景图片 CDN
+    window.BG_CDN = CDN + 'gh/';
+  </script>
+  
   <style>
     :root {
       --bg-color: #f0f0f0;
@@ -14,8 +59,12 @@
       --item-bg: #fff;
       --shadow: rgba(0,0,0,0.1);
       --name-color: black;
-      --light-bg-image: url('https://fastly.jsdelivr.net/gh/czy13724/czy13724.github.io@master/img/bg/image_20.jpg');
-      --dark-bg-image: url('https://fastly.jsdelivr.net/gh/czy13724/czy13724.github.io@master/img/bg/image_32.jpg');
+      
+      /* --- 玻璃拟态变量 (日间) --- */
+      --glass-bg: rgba(255, 255, 255, 0.3);
+      --glass-border: rgba(255, 255, 255, 0.4);
+      --glass-text: #333;
+      --glass-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     }
     body.dark-mode {
       --bg-color: #333;
@@ -23,10 +72,14 @@
       --item-bg: #555;
       --shadow: rgba(255,255,255,0.1);
       --name-color: white;
-      background-image: var(--dark-bg-image);
+      
+      /* --- 玻璃拟态变量 (夜间) --- */
+      --glass-bg: rgba(0, 0, 0, 0.3);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --glass-text: #fff;
+      --glass-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     }
     body {
-      background-image: var(--light-bg-image);
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
@@ -34,23 +87,197 @@
       background-color: var(--bg-color);
       color: var(--text-color);
       font-family: sans-serif;
+      margin: 0;
+      overflow-x: hidden; 
     }
-    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    
+    .container { max-width: 1200px; margin: 0 auto; padding: 20px; padding-top: 80px; }
     h1, #description { text-align: center; }
+    
+    /* --- 顶部工具栏 --- */
+    .header-toolbar {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 100;
+      flex-wrap: wrap; 
+    }
+
+    .toolbar-item {
+      height: 36px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: all 0.3s;
+      background-color: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      color: var(--glass-text) !important;
+      box-shadow: var(--glass-shadow);
+    }
+    
+    .toolbar-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      background-color: var(--glass-bg);
+      filter: brightness(1.1);
+    }
+
+    #sponsorLink { padding: 0 18px; border-radius: 6px; font-weight: 600; gap: 8px; font-size: 13px; }
+    #sponsorLink i { font-size: 14px; }
+
+    #cdnSelector {
+      padding: 0 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      outline: none;
+      text-align: center;
+      text-align-last: center;
+      -moz-text-align-last: center;
+      font-weight: 500;
+      font-size: 13px;
+      max-width: 160px;
+    }
+    #cdnSelector option { background-color: var(--item-bg); color: var(--text-color); }
+
+    #darkModeToggle { width: 36px; padding: 0; border-radius: 50%; cursor: pointer; font-size: 16px; }
+
+    .contact-menu {
+      position: relative; width: 36px; height: 36px; padding: 0;
+      background: none; border: none; box-shadow: none; backdrop-filter: none;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .contact-toggle {
+      width: 100%; height: 100%; border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; font-size: 16px;
+      position: relative; overflow: hidden;
+      background-color: var(--glass-bg); backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px); border: 1px solid var(--glass-border);
+      color: var(--glass-text); box-shadow: var(--glass-shadow); transition: all 0.3s;
+    }
+    .contact-toggle:hover { transform: translateY(-2px); filter: brightness(1.1); }
+    .contact-toggle::after {
+      content: ''; position: absolute; top: 0; left: 0; width: 60%; height: 100%;
+      background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
+      transform: skewX(-20deg); animation: shimmer 3s infinite ease-in-out; pointer-events: none;
+    }
+
+    .contact-dropdown {
+      position: absolute; top: 50px; right: 0; background: var(--item-bg);
+      border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); padding: 10px;
+      min-width: 160px; opacity: 0; visibility: hidden;
+      transform: translateY(-10px); transition: all 0.3s; z-index: 101; text-align: left;
+    }
+    .contact-menu:hover .contact-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+    .contact-dropdown a {
+      display: flex; align-items: center; gap: 10px; padding: 8px 12px;
+      color: var(--text-color); text-decoration: none; border-radius: 5px; font-size: 13px;
+    }
+    .contact-dropdown a i { width: 16px; text-align: center; }
+    .contact-dropdown a:hover { background-color: var(--shadow); }
+
+    #githubLink { width: 40px; height: 40px; border-radius: 50%; position: relative; overflow: hidden; }
+    #githubLink svg { width: 28px; height: 28px; fill: var(--glass-text); filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
+    @keyframes shimmer {
+      0% { transform: translateX(-150%) skewX(-20deg); }
+      50% { transform: translateX(200%) skewX(-20deg); }
+      100% { transform: translateX(200%) skewX(-20deg); }
+    }
+    #githubLink::after {
+      content: ''; position: absolute; top: 0; left: 0; width: 60%; height: 100%;
+      background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
+      transform: skewX(-20deg); animation: shimmer 3s infinite ease-in-out; pointer-events: none;
+    }
+
+    /* --- 中部控制栏 --- */
     .controls {
       display: flex;
-      justify-content: space-between;
+      gap: 12px;
       margin-bottom: 20px;
+      margin-top: 20px;
+      flex-wrap: wrap; 
     }
-    #search { flex-grow: 1; margin-right: 10px; padding: 5px; font-style: italic; }
-    #categoryFilter { padding: 5px; }
-    .download-all {
-      margin-left: 10px; padding: 5px 10px;
-      background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;
+    
+    #search { 
+      flex-grow: 1; 
+      padding: 0 15px; 
+      height: 40px;
+      font-style: italic; 
+      border-radius: 6px;
+      outline: none;
+      box-sizing: border-box;
+      background-color: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--text-color);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: var(--glass-shadow);
+      transition: all 0.3s;
     }
+    #search::placeholder { color: rgba(128, 128, 128, 0.8); }
+    #search:focus { background-color: var(--item-bg); border-color: #4CAF50; }
+    
+    .controls-right {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap; 
+    }
+
+    #categoryFilter { 
+      padding: 0 15px; 
+      min-width: 130px;
+      height: 40px;
+      cursor: pointer;
+      border-radius: 6px;
+      outline: none;
+      box-sizing: border-box;
+      text-align: center;
+      text-align-last: center;
+      -moz-text-align-last: center;
+      background-color: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--text-color);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: var(--glass-shadow);
+    }
+    #categoryFilter option { background-color: var(--item-bg); text-align: center; }
+    
+    .btn-action {
+      padding: 0 15px;
+      height: 40px;
+      border: none; 
+      border-radius: 6px; 
+      cursor: pointer;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: all 0.3s;
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      font-size: 13px;
+    }
+    .btn-action:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+
+    .copy-collection-btn { background-color: #2196F3; color: white; }
+    .copy-collection-btn:hover { background-color: #1976D2; }
+
+    .download-all { background-color: #4CAF50; color: white; }
+    .download-all:hover { background-color: #45a049; }
+
+    /* 图标网格布局 */
     .icon-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      /* PC端使用 120px 宽度，保证文字不换行 */
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
       gap: 20px;
       padding: 20px;
     }
@@ -63,16 +290,25 @@
       max-width: 64px; height: auto;
       cursor: pointer; display: block; margin: 0 auto;
     }
-    .icon-item p { margin: 10px 0; font-size: 12px; color: var(--name-color); }
-    .icon-actions {
-      display: flex; flex-direction: column; gap: 5px;
+    .icon-item p { 
+      margin: 10px 0; 
+      font-size: 12px; 
+      color: var(--name-color); 
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     }
+    .icon-actions { display: flex; flex-direction: column; gap: 5px; }
+    
+    /* 按钮样式：强制不换行，处理溢出 */
     .icon-actions button {
       background-color: #4CAF50; border: none; padding: 5px;
       font-size: 12px; color: white; cursor: pointer; border-radius: 3px;
+      white-space: nowrap; 
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
+    
     .modal {
-      display: none; position: fixed; z-index: 1000;
+      display: none; position: fixed; z-index: 2000;
       left: 0; top: 0; width: 100%; height: 100%;
       background-color: rgba(0,0,0,0.5);
       justify-content: center; align-items: center;
@@ -80,157 +316,412 @@
     .modal-content {
       background-color: #fff; padding: 20px;
       border-radius: 10px; text-align: center;
+      max-width: 90%;
     }
-    .modal-content img { max-width: 100%; }
+    .modal-content img { max-width: 100%; max-height: 80vh; }
     #closeModal {
       position: absolute; top: 10px; right: 10px;
       font-size: 20px; font-weight: bold;
       background-color: rgba(255,255,255,0.7);
       padding: 5px; border-radius: 50%; cursor: pointer;
     }
-    #darkModeToggle {
-      position: absolute; top: 20px; right: 20px;
-      padding: 5px 10px; background-color: #333;
-      color: #fff; border: none; border-radius: 5px; cursor: pointer;
-    }
     .footer {
       position: fixed; bottom: 10px; width: 100%;
-      text-align: center; font-size: 14px; color: var(--text-color);
+      text-align: center; font-size: 12px; color: var(--text-color);
+      pointer-events: none; opacity: 0.7;
     }
-    .footer a { color: var(--text-color); font-weight: bold; text-decoration: none; }
+    .footer a { pointer-events: auto; color: var(--text-color); font-weight: bold; text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+    .loading { text-align: center; padding: 20px; font-size: 16px; }
     
-    /* 加载状态样式 */
-    .loading {
-      text-align: center;
-      padding: 20px;
-      font-size: 16px;
-    }
-    .error {
-      color: #ff4444;
-      text-align: center;
-      padding: 20px;
-    }
-    .retry-btn {
-      background-color: #ff6b6b;
+    .toast-box {
+      position: fixed; 
+      right: -400px;
+      padding: 10px 15px; 
+      border-radius: 8px 0 0 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      font-size: 13px; 
+      z-index: 9999;
+      transition: right 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      display: flex; align-items: center; gap: 8px; white-space: nowrap;
       color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-top: 10px;
+    }
+    .toast-box.show { right: 0; }
+    .cdn-toast { top: 70px; background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+    .message-toast { top: 130px; background-color: #333; border-left: 5px solid #4CAF50; }
+
+    /* =========================================
+       📱 移动端适配 (Media Queries)
+       ========================================= */
+    @media (max-width: 768px) {
+      .header-toolbar {
+        position: relative; 
+        top: auto; right: auto;
+        justify-content: center; 
+        margin: 10px auto;
+        width: 100%;
+        padding: 0 10px;
+        box-sizing: border-box;
+      }
+      
+      .container { padding-top: 20px; }
+      
+      .controls { flex-direction: column; gap: 10px; }
+      
+      #search { width: 100%; }
+      
+      .controls-right {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr; 
+        gap: 8px;
+      }
+      
+      #categoryFilter {
+        grid-column: 1 / -1; 
+        width: 100%;
+        min-width: unset;
+      }
+      
+      .copy-collection-btn, .download-all { width: 100%; }
+      
+      #cdnSelector {
+        max-width: 120px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      
+      .cdn-toast { top: 20px; right: -100%; border-radius: 8px; left: 20px; justify-content: center; }
+      .cdn-toast.show { right: 20px; } 
+      .message-toast { top: 70px; right: -100%; border-radius: 8px; left: 20px; justify-content: center; }
+      .message-toast.show { right: 20px; }
+
+      /* 移动端网格稍微变窄，适配小屏幕 */
+      .icon-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 15px;
+        padding: 10px;
+      }
     }
   </style>
-  <meta name="google-adsense-account" content="ca-pub-9823824864995295">
 </head>
 <body>
-  <div class="container">
+  
+  <div class="container" style="padding-bottom: 0; padding-top: 40px;">
     <h1>Levi图标订阅</h1>
     <div id="description"></div>
-    <button id="darkModeToggle">切换暗黑模式</button>
+  </div>
+
+  <div class="header-toolbar">
+    <a id="sponsorLink" class="toolbar-item" href="https://buymeacoffee.com/czy13724" target="_blank">
+      <i class="fa fa-coffee"></i>
+      <span>赞助</span>
+    </a>
+    <select id="cdnSelector" class="toolbar-item">
+      <option value="auto">🚀 自动选择</option>
+      <option value="cdn.jsdelivr.net">cdn.jsdelivr.net</option>
+      <option value="fastly.jsdelivr.net">fastly.jsdelivr.net</option>
+      <option value="gcore.jsdelivr.net">gcore.jsdelivr.net</option>
+      <option value="testingcf.jsdelivr.net">testingcf.jsdelivr.net</option>
+      <option value="cdn.jsdmirror.com">cdn.jsdmirror.com</option>
+      <option value="ghproxy.com">ghproxy.com</option>
+      <option value="mirror.ghproxy.com">mirror.ghproxy.com</option>
+      <option value="gh.api.99988866.xyz">gh.api.99988866.xyz</option>
+      <option value="github.moeyy.xyz">github.moeyy.xyz</option>
+      <option value="gh-proxy.com">gh-proxy.com</option>
+      <option value="ghps.cc">ghps.cc</option>
+      <option value="cors.isteed.cc">cors.isteed.cc</option>
+      <option value="cdn.staticaly.com">cdn.staticaly.com</option>
+      <option value="raw.githubusercontent.com">raw.githubusercontent.com</option>
+    </select>
+    <button id="darkModeToggle" class="toolbar-item" title="切换暗黑模式">
+      <i class="fa fa-moon"></i>
+    </button>
+    <div class="contact-menu">
+      <button class="contact-toggle" title="联系方式">
+        <i class="fa fa-envelope-o"></i>
+      </button>
+      <div class="contact-dropdown">
+        <a href="https://t.me/i_Levibot" target="_blank"><i class="fa fa-telegram"></i> Telegram</a>
+        <a href="https://x.com/Levi13724" target="_blank"><i class="fa fa-twitter"></i> Twitter/X</a>
+        <a href="mailto:contact@levifree.qzz.io"><i class="fa fa-envelope"></i> Email</a>
+      </div>
+    </div>
+    <a id="githubLink" class="toolbar-item" href="https://github.com/czy13724" target="_blank" title="GitHub">
+      <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+      </svg>
+    </a>
+  </div>
+
+  <div class="container" style="padding-top: 10px;">
     <div class="controls">
       <input type="text" id="search" placeholder="搜索图标 (Search Icons)...">
-      <select id="categoryFilter"><option value="">所有分类</option></select>
-      <button class="download-all" id="downloadAll">下载所有图标</button>
+      <div class="controls-right">
+        <select id="categoryFilter"><option value="">📌 全部 (All)</option></select>
+        <button class="btn-action copy-collection-btn" id="copyCollectionBtn">
+          <i class="fa fa-link"></i> 复制合集链接
+        </button>
+        <button class="btn-action download-all" id="downloadAll">下载全部图标</button>
+      </div>
     </div>
+    
     <div id="loadingStatus" class="loading">正在加载图标数据...</div>
     <div id="iconGrid" class="icon-grid"></div>
   </div>
+  
   <div id="iconModal" class="modal">
     <div class="modal-content">
       <span id="closeModal">&times;</span>
       <img id="modalImage" src="" alt="预览图">
     </div>
   </div>
+  
   <div class="footer">
-    Powered by <a href="https://github.com/czy13724" target="_blank">Levi</a> © 2024
+    Powered by <a href="https://github.com/czy13724/LeviIcons" target="_blank">Levi</a> © 2024
   </div>
+  
+  <div id="cdnToast" class="toast-box cdn-toast">
+    <span class="cdn-icon">✅</span>
+    <span class="cdn-text">当前选用 <strong id="cdnName">加载中...</strong></span>
+  </div>
+
+  <div id="messageToast" class="toast-box message-toast">
+    <span class="cdn-icon">✨</span>
+    <span id="messageText" class="cdn-text">消息内容</span>
+  </div>
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
   <script>
+    let currentJsonUrl = '';
+
+    (function() {
+      const bgCDN = window.BG_CDN || 'https://fastly.jsdelivr.net/gh/';
+      const lightBg = bgCDN + 'czy13724/czy13724.github.io@master/img/bg/image_20.jpg';
+      const darkBg = bgCDN + 'czy13724/czy13724.github.io@master/img/bg/image_32.jpg';
+      const hour = new Date().getHours();
+      const isNight = hour >= 18 || hour < 6;
+      if (isNight) { document.body.classList.add('dark-mode'); } 
+      else { document.body.classList.remove('dark-mode'); }
+      
+      function updateThemeUI() {
+        const isDark = document.body.classList.contains('dark-mode');
+        const toggleIcon = document.querySelector('#darkModeToggle i');
+        if (isDark) {
+          toggleIcon.className = 'fa fa-sun'; 
+          document.body.style.backgroundImage = `url('${darkBg}')`;
+        } else {
+          toggleIcon.className = 'fa fa-moon'; 
+          document.body.style.backgroundImage = `url('${lightBg}')`;
+        }
+      }
+      updateThemeUI();
+      const toggleBtn = document.getElementById('darkModeToggle');
+      if (toggleBtn) {
+        toggleBtn.onclick = () => {
+          document.body.classList.toggle('dark-mode');
+          updateThemeUI();
+        };
+      }
+    })();
+    
     let icons = [];
+    let successfulCDN = 'https://fastly.jsdelivr.net/gh/'; 
     const RAW_PREFIX = "https://raw.githubusercontent.com/";
     const CDN_PREFIX = "https://fastly.jsdelivr.net/gh/";
-    const MAX_RETRIES = 5;
-    const RETRY_DELAY = 2000; // 2秒
+    const MAX_RETRIES = 1; 
+    const RETRY_DELAY = 1000; 
+    const TIMEOUT = 5000; 
+    const PARALLEL_TEST_COUNT = 3; 
+    const DEFAULT_CONFIG_SOURCES = [
+      'https://cdn.jsdelivr.net/gh/czy13724/LeviIcons@main/levi.icons.json',
+      'https://fastly.jsdelivr.net/gh/czy13724/LeviIcons@main/levi.icons.json',
+      'https://gcore.jsdelivr.net/gh/czy13724/LeviIcons@main/levi.icons.json',
+      'https://testingcf.jsdelivr.net/gh/czy13724/LeviIcons@main/levi.icons.json',
+      'https://cdn.jsdmirror.com/gh/czy13724/LeviIcons@main/levi.icons.json',
+      'https://ghproxy.com/https://raw.githubusercontent.com/czy13724/LeviIcons/main/levi.icons.json',
+      'https://mirror.ghproxy.com/https://raw.githubusercontent.com/czy13724/LeviIcons/main/levi.icons.json',
+      'https://gh.api.99988866.xyz/https://raw.githubusercontent.com/czy13724/LeviIcons/main/levi.icons.json',
+      'https://github.moeyy.xyz/https://raw.githubusercontent.com/czy13724/LeviIcons/main/levi.icons.json',
+      'https://gh-proxy.com/https://raw.githubusercontent.com/czy13724/LeviIcons/main/levi.icons.json',
+      'https://ghps.cc/https://raw.githubusercontent.com/czy13724/LeviIcons/main/levi.icons.json',
+      'https://cors.isteed.cc/github.com/czy13724/LeviIcons/raw/main/levi.icons.json',
+      'https://cdn.staticaly.com/gh/czy13724/LeviIcons/main/levi.icons.json',
+      'https://raw.githubusercontent.com/czy13724/LeviIcons/main/levi.icons.json'
+    ];
 
-    // 带重试机制的 fetch 函数
+    function getConfigFromURL() {
+      const params = new URLSearchParams(window.location.search);
+      const customConfig = params.get('config');
+      if (customConfig) {
+        try {
+          const url = new URL(customConfig);
+          if (url.protocol === 'https:') return customConfig;
+        } catch (e) {}
+      }
+      return null;
+    }
+
+    function getConfigSources() {
+      const manualCDN = localStorage.getItem('manualCDN');
+      if (manualCDN && manualCDN !== 'auto') {
+        const manualSource = DEFAULT_CONFIG_SOURCES.find(s => s.includes(manualCDN));
+        if (manualSource) return [manualSource, ...DEFAULT_CONFIG_SOURCES.filter(s => s !== manualSource)];
+      }
+      const lastSuccessful = localStorage.getItem('lastSuccessfulCDN');
+      if (lastSuccessful) {
+        const lastTime = localStorage.getItem('lastSuccessfulTime');
+        const now = Date.now();
+        if (lastTime && (now - parseInt(lastTime)) < 7 * 24 * 60 * 60 * 1000) {
+          return [lastSuccessful, ...DEFAULT_CONFIG_SOURCES.filter(s => s !== lastSuccessful)];
+        }
+      }
+      const customConfig = getConfigFromURL();
+      if (customConfig) return [customConfig, ...DEFAULT_CONFIG_SOURCES];
+      return [...DEFAULT_CONFIG_SOURCES];
+    }
+
     async function fetchWithRetry(url, retries = MAX_RETRIES, delay = RETRY_DELAY) {
       for (let i = 0; i <= retries; i++) {
         try {
-          console.log(`尝试加载数据 (第${i + 1}次)...`);
-          updateLoadingStatus(`正在加载图标数据... (第${i + 1}次尝试)`);
-          
-          // 添加随机参数避免缓存
-          const cacheBuster = `?t=${Date.now()}&r=${Math.random()}`;
-          const response = await fetch(url + cacheBuster);
-          
-          if (!response.ok) {
-            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-          }
-          
-          const data = await response.json();
-          console.log('数据加载成功!');
-          return data;
+          updateLoadingStatus(`正在从 ${formatSourceName(url)} 加载... (第${i + 1}/${retries + 1}次尝试)`);
+          const cacheBuster = `${url.includes('?') ? '&' : '?'}t=${Date.now()}`;
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), TIMEOUT);
+          const response = await fetch(url + cacheBuster, {
+            signal: controller.signal,
+            headers: { 'Accept': 'application/json' }
+          });
+          clearTimeout(timeoutId);
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          return await response.json();
         } catch (error) {
-          console.warn(`第${i + 1}次尝试失败:`, error.message);
-          
-          if (i === retries) {
-            // 最后一次尝试也失败了
-            throw new Error(`加载失败，已重试${retries + 1}次: ${error.message}`);
-          }
-          
-          // 等待后重试
-          updateLoadingStatus(`加载失败，${delay/1000}秒后重试... (${i + 1}/${retries + 1})`);
+          if (i === retries) throw new Error(error.message);
+          updateLoadingStatus(`加载失败，${delay/1000}秒后重试...`);
           await new Promise(resolve => setTimeout(resolve, delay));
-          
-          // 增加延迟时间（指数退避）
-          delay = Math.min(delay * 1.5, 10000);
         }
       }
     }
 
-    function updateLoadingStatus(message) {
-      const loadingEl = document.getElementById('loadingStatus');
-      loadingEl.textContent = message;
+    function extractCDNPrefix(configUrl) {
+      if (configUrl.includes('cdn.jsdelivr.net/gh/')) return 'https://cdn.jsdelivr.net/gh/';
+      if (configUrl.includes('fastly.jsdelivr.net/gh/')) return 'https://fastly.jsdelivr.net/gh/';
+      if (configUrl.includes('gcore.jsdelivr.net/gh/')) return 'https://gcore.jsdelivr.net/gh/';
+      if (configUrl.includes('testingcf.jsdelivr.net/gh/')) return 'https://testingcf.jsdelivr.net/gh/';
+      if (configUrl.includes('cdn.jsdmirror.com/gh/')) return 'https://cdn.jsdmirror.com/gh/';
+      if (configUrl.includes('cdn.staticaly.com/gh/')) return 'https://cdn.staticaly.com/gh/';
+      return 'https://fastly.jsdelivr.net/gh/';
     }
 
-    function showError(message) {
+    function convertToCDN(rawUrl) {
+      if (rawUrl.includes(RAW_PREFIX)) {
+        const parts = rawUrl.replace(RAW_PREFIX, '').split('/');
+        if (parts.length >= 3) {
+          return `${successfulCDN}${parts[0]}/${parts[1]}@${parts[2]}/${parts.slice(3).join('/')}`;
+        }
+      }
+      return rawUrl;
+    }
+
+    function showCDNToast(cdnName) {
+      const toast = document.getElementById('cdnToast');
+      const nameEl = document.getElementById('cdnName');
+      let displayName = cdnName;
+      if (cdnName.includes('jsdelivr')) {
+        if (cdnName.includes('cdn.jsdelivr.net')) displayName = 'cdn.jsdelivr.net';
+        else if (cdnName.includes('fastly.jsdelivr.net')) displayName = 'fastly.jsdelivr.net';
+        else if (cdnName.includes('gcore.jsdelivr.net')) displayName = 'gcore.jsdelivr.net';
+        else if (cdnName.includes('testingcf.jsdelivr.net')) displayName = 'testingcf.jsdelivr.net';
+        else if (cdnName.includes('cdn.jsdmirror.com')) displayName = 'cdn.jsdmirror.com';
+      }
+      nameEl.textContent = displayName;
+      setTimeout(() => toast.classList.add('show'), 500);
+      setTimeout(() => toast.classList.remove('show'), 4500);
+    }
+
+    function showMessage(msg) {
+      const toast = document.getElementById('messageToast');
+      const textEl = document.getElementById('messageText');
+      textEl.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    function formatSourceName(url) {
+      if (url.includes('raw.githubusercontent.com')) return 'GitHub Raw';
+      if (url.includes('cdn.jsdelivr.net')) return 'jsDelivr CDN';
+      if (url.includes('fastly.jsdelivr.net')) return 'jsDelivr Fastly';
+      if (url.includes('gcore.jsdelivr.net')) return 'jsDelivr Gcore';
+      if (url.includes('testingcf.jsdelivr.net')) return 'jsDelivr CF';
+      if (url.includes('cdn.jsdmirror.com')) return 'jsDelivr Mirror';
+      if (url.includes('ghproxy.com')) return 'GHProxy';
+      return 'Remote';
+    }
+
+    function updateLoadingStatus(message) {
       const loadingEl = document.getElementById('loadingStatus');
-      loadingEl.innerHTML = `
-        <div class="error">
-          <div>❌ ${message}</div>
-          <button class="retry-btn" onclick="loadIconData()">重新加载</button>
-        </div>
-      `;
+      if (loadingEl) loadingEl.textContent = message;
+    }
+
+    function validateConfig(config) {
+      const errors = [];
+      if (!config.name) errors.push('缺少 name');
+      if (!config.description) errors.push('缺少 description');
+      if (!Array.isArray(config.icons)) errors.push('icons 必须是数组');
+      return { valid: errors.length === 0, errors };
     }
 
     async function loadIconData() {
-      try {
-        const data = await fetchWithRetry('levi.icons.json');
-        
-        document.title = data.name;
-        document.getElementById('description').textContent = data.description;
-        icons = data.icons.map(icon => {
-          icon.rawUrl = icon.url;
-          if (icon.url.includes(RAW_PREFIX)) {
-            icon.url = icon.url.replace(RAW_PREFIX, CDN_PREFIX).replace("/main/", "@main/");
+      const sources = getConfigSources();
+      if (sources.length >= PARALLEL_TEST_COUNT) {
+        updateLoadingStatus('🚀 智能选择最快节点...');
+        try {
+          const parallelSources = sources.slice(0, PARALLEL_TEST_COUNT);
+          const result = await Promise.race(
+            parallelSources.map(async (source) => {
+              const data = await fetchWithRetry(source);
+              if (!validateConfig(data).valid) throw new Error('配置格式无效');
+              return { success: true, source, data };
+            })
+          );
+          if (result.success) {
+            applyData(result.source, result.data);
+            return;
           }
-          return icon;
-        });
-        
-        // 隐藏加载状态
-        document.getElementById('loadingStatus').style.display = 'none';
-        
-        renderIcons(icons);
-        updateCategoryFilter(icons);
-        
-        console.log(`成功加载 ${icons.length} 个图标`);
-      } catch (error) {
-        console.error('最终加载失败:', error);
-        showError(error.message);
+        } catch (e) { console.warn('并行测速失败，切换顺序加载'); }
       }
+      for (const source of sources) {
+        try {
+          const data = await fetchWithRetry(source);
+          if (validateConfig(data).valid) {
+            applyData(source, data);
+            return;
+          }
+        } catch (e) { console.error(e); }
+      }
+      document.getElementById('loadingStatus').innerHTML = '<div class="error">加载失败，请重试</div>';
     }
 
-    // 页面加载时开始获取数据
+    function applyData(source, data) {
+      currentJsonUrl = source;
+      localStorage.setItem('lastSuccessfulCDN', source);
+      localStorage.setItem('lastSuccessfulTime', Date.now().toString());
+      document.title = data.name;
+      document.getElementById('description').textContent = data.description;
+      successfulCDN = extractCDNPrefix(source);
+      showCDNToast(formatSourceName(source));
+      
+      icons = data.icons.map(icon => {
+        icon.rawUrl = icon.url;
+        icon.url = convertToCDN(icon.url);
+        return icon;
+      });
+      document.getElementById('loadingStatus').style.display = 'none';
+      renderIcons(icons);
+      updateCategoryFilter(icons);
+    }
+
     loadIconData();
 
     function renderIcons(data) {
@@ -254,23 +745,37 @@
 
     function updateCategoryFilter(icons) {
       const catFilter = document.getElementById('categoryFilter');
-      const cats = [...new Set(icons.map(i => i.category).filter(Boolean))];
-      cats.forEach(cat => {
+      catFilter.innerHTML = '<option value="">📌 全部 (All)</option>';
+      
+      const initials = icons
+        .map(i => i.name ? i.name.charAt(0).toUpperCase() : '')
+        .filter(c => c); 
+        
+      const uniqueInitials = [...new Set(initials)].sort();
+
+      uniqueInitials.forEach(char => {
         const opt = document.createElement('option');
-        opt.value = cat;
-        opt.textContent = cat;
+        opt.value = char;
+        opt.textContent = char;
         catFilter.appendChild(opt);
       });
     }
 
+    document.getElementById('categoryFilter').addEventListener('change', e => {
+      const char = e.target.value;
+      if (!char) {
+        renderIcons(icons);
+      } else {
+        const filtered = icons.filter(i => 
+          i.name && i.name.toUpperCase().startsWith(char)
+        );
+        renderIcons(filtered);
+      }
+    });
+
     document.getElementById('search').addEventListener('input', e => {
       const term = e.target.value.toLowerCase();
       renderIcons(icons.filter(icon => icon.name.toLowerCase().includes(term)));
-    });
-
-    document.getElementById('categoryFilter').addEventListener('change', e => {
-      const cat = e.target.value;
-      renderIcons(cat ? icons.filter(i => i.category === cat) : icons);
     });
 
     function downloadIcon(url, name) {
@@ -278,11 +783,24 @@
       a.href = url; a.download = name;
       document.body.appendChild(a);
       a.click(); document.body.removeChild(a);
+      showMessage('开始下载...');
     }
 
     function copyLink(url) {
-      navigator.clipboard.writeText(url).then(() => alert('链接已复制'));
+      navigator.clipboard.writeText(url)
+        .then(() => showMessage('✨ 链接已复制到剪贴板！'))
+        .catch(() => showMessage('❌ 复制失败，请手动复制'));
     }
+
+    document.getElementById('copyCollectionBtn').onclick = () => {
+      if (currentJsonUrl) {
+        navigator.clipboard.writeText(currentJsonUrl)
+          .then(() => showMessage('📋 合集链接已复制！'))
+          .catch(() => showMessage('❌ 复制失败'));
+      } else {
+        showMessage('⚠️ 尚未加载到有效的源链接');
+      }
+    };
 
     function openModal(url) {
       document.getElementById('iconModal').style.display = 'flex';
@@ -294,11 +812,8 @@
     };
 
     document.getElementById('downloadAll').onclick = () => {
-      if (icons.length === 0) {
-        alert('没有可下载的图标');
-        return;
-      }
-      
+      if (icons.length === 0) return alert('没有可下载的图标');
+      showMessage('🚀 正在打包下载，请稍候...');
       const zip = new JSZip();
       Promise.all(icons.map(icon => fetch(icon.url).then(r => r.blob().then(b => zip.file(icon.name, b)))))
         .then(() => zip.generateAsync({type:"blob"}))
@@ -308,18 +823,19 @@
           a.download = "levi-icons.zip";
           document.body.appendChild(a);
           a.click(); document.body.removeChild(a);
+          showMessage('✅ 打包完成，开始下载');
         })
-        .catch(error => {
-          console.error('下载失败:', error);
-          alert('下载失败，请稍后重试');
-        });
+        .catch(error => showMessage('❌ 下载失败，请稍后重试'));
     };
 
-    document.getElementById('darkModeToggle').onclick = () => {
-      document.body.classList.toggle('dark-mode');
-      document.getElementById('darkModeToggle').textContent =
-        document.body.classList.contains('dark-mode') ? '切换日间模式' : '切换暗黑模式';
-    };
+    const cdnSelector = document.getElementById('cdnSelector');
+    const savedCDN = localStorage.getItem('manualCDN') || 'auto';
+    cdnSelector.value = savedCDN;
+    cdnSelector.addEventListener('change', (e) => {
+      const selected = e.target.value;
+      localStorage.setItem('manualCDN', selected);
+      if (confirm(`已选择 ${selected}，是否立即刷新页面生效？`)) window.location.reload();
+    });
   </script>
 </body>
 </html>
