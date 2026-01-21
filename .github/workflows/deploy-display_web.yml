@@ -1,4 +1,4 @@
-name: Deploy static content to Pages
+name: Deploy Display Web
 
 on:
   # 监听 push 事件
