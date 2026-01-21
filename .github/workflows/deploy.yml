@@ -1,0 +1,42 @@
+name: Deploy static content to Pages
+
+on:
+  # 监听 push 事件
+  push:
+    branches: ["main"]  # 确保这里是仓库的主分支名 (main 或 master)
+    paths:
+      - 'index.html'    # 只监测 index.html，其他文件变动不触发
+
+  # 允许手动在 Actions 页面点击按钮触发
+  workflow_dispatch:
+
+# 设置权限
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 允许并发部署，新的会把旧的挤掉
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  # 部署任务
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # 上传整个仓库作为网页内容
+          path: '.'
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
