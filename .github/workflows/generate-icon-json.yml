@@ -5,6 +5,9 @@ on:
     paths:
       # [Config] Watch directory: Change 'leviicons' to your image folder name
       - 'leviicons/**'
+  
+  # 1. 开启手动触发按钮
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -35,22 +38,28 @@ jobs:
       - name: Generate Commit Message
         id: msg
         run: |
-          BEFORE=${{ github.event.before }}
-          AFTER=${{ github.event.after }}
-          
           # [Config] Change 'leviicons/' below to match your image folder name
           DIR="leviicons/"
           
-          ADDED=$(git diff --name-only --diff-filter=A $BEFORE $AFTER -- $DIR | xargs -I {} basename {} | paste -sd "," - | sed 's/,/, /g')
-          DELETED=$(git diff --name-only --diff-filter=D $BEFORE $AFTER -- $DIR | xargs -I {} basename {} | paste -sd "," - | sed 's/,/, /g')
-          MODIFIED=$(git diff --name-only --diff-filter=M $BEFORE $AFTER -- $DIR | xargs -I {} basename {} | paste -sd "," - | sed 's/,/, /g')
+          # 2. 设置默认消息（防止手动触发时没消息报错）
+          MSG="Manual update: Re-generated icon list [skip ci]"
           
-          MSG="Auto update:"
-          if [ -n "$ADDED" ]; then MSG="$MSG Add: $ADDED;"; fi
-          if [ -n "$DELETED" ]; then MSG="$MSG Delete: $DELETED;"; fi
-          if [ -n "$MODIFIED" ]; then MSG="$MSG Update: $MODIFIED;"; fi
+          # 3. 只有是 Push (自动触发) 时，才去计算具体改了什么文件
+          if [ "${{ github.event_name }}" == "push" ]; then
+            BEFORE=${{ github.event.before }}
+            AFTER=${{ github.event.after }}
+            
+            ADDED=$(git diff --name-only --diff-filter=A $BEFORE $AFTER -- $DIR | xargs -I {} basename {} | paste -sd "," - | sed 's/,/, /g')
+            DELETED=$(git diff --name-only --diff-filter=D $BEFORE $AFTER -- $DIR | xargs -I {} basename {} | paste -sd "," - | sed 's/,/, /g')
+            MODIFIED=$(git diff --name-only --diff-filter=M $BEFORE $AFTER -- $DIR | xargs -I {} basename {} | paste -sd "," - | sed 's/,/, /g')
+            
+            MSG="Auto update:"
+            if [ -n "$ADDED" ]; then MSG="$MSG Add: $ADDED;"; fi
+            if [ -n "$DELETED" ]; then MSG="$MSG Delete: $DELETED;"; fi
+            if [ -n "$MODIFIED" ]; then MSG="$MSG Update: $MODIFIED;"; fi
+            MSG="$MSG [skip ci]"
+          fi
           
-          MSG="$MSG [skip ci]"
           echo "COMMIT_MSG=$MSG" >> $GITHUB_ENV
 
       - name: Execute Generator Script
