@@ -3,368 +3,368 @@
   "description": "收集一些自己常用的图标,欢迎大家引用,如您有新的软件图标可以在issue中说明.",
   "icons": [
     {
-      "name": "ljzf.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/ljzf.png"
-    },
-    {
-      "name": "shcn.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/shcn.png"
-    },
-    {
-      "name": "twitter.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/twitter.png"
-    },
-    {
-      "name": "github_01.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/github_01.png"
-    },
-    {
-      "name": "Discord.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/Discord.png"
-    },
-    {
-      "name": "ZTE.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/ZTE.png"
-    },
-    {
-      "name": "Facebook.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/Facebook.png"
-    },
-    {
-      "name": "mnmy.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/mnmy.png"
-    },
-    {
-      "name": "tuhu.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/tuhu.png"
-    },
-    {
-      "name": "wyx.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/wyx.png"
-    },
-    {
-      "name": "wmbwc.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/wmbwc.png"
-    },
-    {
-      "name": "TikTok.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/TikTok.png"
-    },
-    {
-      "name": "iqooc.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/iqooc.png"
-    },
-    {
-      "name": "Reject.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/Reject.png"
-    },
-    {
-      "name": "BiliBili_02.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/BiliBili_02.png"
-    },
-    {
-      "name": "midea-blue.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/midea-blue.png"
-    },
-    {
-      "name": "zto.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/zto.png"
-    },
-    {
-      "name": "spotify.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/spotify.png"
-    },
-    {
-      "name": "shyp.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/shyp.png"
-    },
-    {
-      "name": "sfsy.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/sfsy.png"
-    },
-    {
-      "name": "socialmediacollection01.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/socialmediacollection01.png"
-    },
-    {
-      "name": "hsyhs.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/hsyhs.png"
-    },
-    {
-      "name": "bilibiliTV3.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/bilibiliTV3.png"
-    },
-    {
-      "name": "Loon_02.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/Loon_02.png"
-    },
-    {
-      "name": "LinkedIn.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/LinkedIn.png"
-    },
-    {
       "name": "AdBlock.png",
       "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/AdBlock.png"
-    },
-    {
-      "name": "cdtfld.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/cdtfld.png"
-    },
-    {
-      "name": "Google.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/Google.png"
-    },
-    {
-      "name": "ChatGPT1.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/ChatGPT1.png"
-    },
-    {
-      "name": "ckysc.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/ckysc.png"
-    },
-    {
-      "name": "cqxhsd.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/cqxhsd.png"
-    },
-    {
-      "name": "puci.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/puci.png"
-    },
-    {
-      "name": "wechat.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/wechat.png"
-    },
-    {
-      "name": "PICC.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/PICC.png"
-    },
-    {
-      "name": "topspace.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/topspace.png"
-    },
-    {
-      "name": "instagram.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/instagram.png"
-    },
-    {
-      "name": "NeteaseUnblock.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/NeteaseUnblock.png"
-    },
-    {
-      "name": "emby.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/emby.png"
-    },
-    {
-      "name": "Panda.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/Panda.png"
-    },
-    {
-      "name": "uicbox.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/uicbox.png"
-    },
-    {
-      "name": "steam.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/steam.png"
-    },
-    {
-      "name": "WhatsApp.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/WhatsApp.png"
-    },
-    {
-      "name": "michelin.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/michelin.png"
-    },
-    {
-      "name": "BiliBili_01.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/BiliBili_01.png"
-    },
-    {
-      "name": "Line.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/Line.png"
-    },
-    {
-      "name": "ileyou.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/ileyou.png"
-    },
-    {
-      "name": "lzly.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/lzly.png"
-    },
-    {
-      "name": "coodoo.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/coodoo.png"
-    },
-    {
-      "name": "JD.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/JD.png"
-    },
-    {
-      "name": "BoxJS.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/BoxJS.png"
-    },
-    {
-      "name": "DisneyPlus.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/DisneyPlus.png"
-    },
-    {
-      "name": "t3dc.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/t3dc.png"
-    },
-    {
-      "name": "X.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/X.png"
-    },
-    {
-      "name": "Alicloud.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/Alicloud.png"
-    },
-    {
-      "name": "kyxx.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/kyxx.png"
-    },
-    {
-      "name": "duleisi.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/duleisi.png"
-    },
-    {
-      "name": "xmh.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/xmh.png"
     },
     {
       "name": "AliYunDrive.png",
       "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/AliYunDrive.png"
     },
     {
-      "name": "qwyx.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/qwyx.png"
-    },
-    {
-      "name": "midea-community.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/midea-community.png"
+      "name": "Alicloud.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/Alicloud.png"
     },
     {
       "name": "Apple.png",
       "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/Apple.png"
     },
     {
-      "name": "sypm.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/sypm.png"
+      "name": "BiliBiliTV1.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/BiliBiliTV1.png"
     },
     {
-      "name": "Talkatone.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/Talkatone.png"
+      "name": "BiliBili_01.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/BiliBili_01.png"
     },
     {
-      "name": "rxjx.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/rxjx.png"
+      "name": "BiliBili_02.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/BiliBili_02.png"
     },
     {
-      "name": "youtube_02.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/youtube_02.png"
+      "name": "BoxJS.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/BoxJS.png"
     },
     {
-      "name": "meituan.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/meituan.png"
-    },
-    {
-      "name": "qch.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/qch.png"
-    },
-    {
-      "name": "Netease.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/Netease.png"
-    },
-    {
-      "name": "Reddit.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/Reddit.png"
+      "name": "ChatGPT1.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/ChatGPT1.png"
     },
     {
       "name": "Chinabroadnet.png",
       "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/Chinabroadnet.png"
     },
     {
-      "name": "github_02.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/github_02.png"
-    },
-    {
-      "name": "ftej.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/ftej.png"
-    },
-    {
-      "name": "fyhs.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/fyhs.png"
-    },
-    {
-      "name": "QingLong.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/QingLong.png"
-    },
-    {
-      "name": "ddyxhs.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/ddyxhs.png"
-    },
-    {
-      "name": "Loon_01.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/Loon_01.png"
-    },
-    {
-      "name": "netflix.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/netflix.png"
-    },
-    {
-      "name": "dkn.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/dkn.png"
-    },
-    {
       "name": "Cloudflare.png",
       "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/Cloudflare.png"
     },
     {
-      "name": "ylqqx.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/ylqqx.png"
+      "name": "Discord.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/Discord.png"
     },
     {
-      "name": "jxzh.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/jxzh.png"
+      "name": "DisneyPlus.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/DisneyPlus.png"
     },
     {
-      "name": "SubStore.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/SubStore.png"
+      "name": "Facebook.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/Facebook.png"
     },
     {
-      "name": "youtube_01.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/youtube_01.png"
-    },
-    {
-      "name": "network-preferred.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/network-preferred.png"
-    },
-    {
-      "name": "telegram.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/telegram.png"
-    },
-    {
-      "name": "BiliBiliTV1.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/BiliBiliTV1.png"
-    },
-    {
-      "name": "SafeUM.png",
-      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/SafeUM.png"
+      "name": "Google.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/Google.png"
     },
     {
       "name": "GoogleVoice.png",
       "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/GoogleVoice.png"
     },
     {
+      "name": "JD.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/JD.png"
+    },
+    {
+      "name": "Line.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/Line.png"
+    },
+    {
+      "name": "LinkedIn.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/LinkedIn.png"
+    },
+    {
+      "name": "Loon_01.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/Loon_01.png"
+    },
+    {
+      "name": "Loon_02.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/Loon_02.png"
+    },
+    {
+      "name": "Netease.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/Netease.png"
+    },
+    {
+      "name": "NeteaseUnblock.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/NeteaseUnblock.png"
+    },
+    {
+      "name": "PICC.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/PICC.png"
+    },
+    {
+      "name": "Panda.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/Panda.png"
+    },
+    {
+      "name": "QingLong.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/QingLong.png"
+    },
+    {
+      "name": "Reddit.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/Reddit.png"
+    },
+    {
+      "name": "Reject.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/Reject.png"
+    },
+    {
+      "name": "SafeUM.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/SafeUM.png"
+    },
+    {
+      "name": "SubStore.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/SubStore.png"
+    },
+    {
+      "name": "Talkatone.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/Talkatone.png"
+    },
+    {
+      "name": "TikTok.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/TikTok.png"
+    },
+    {
+      "name": "WhatsApp.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/WhatsApp.png"
+    },
+    {
+      "name": "X.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/X.png"
+    },
+    {
+      "name": "ZTE.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/ZTE.png"
+    },
+    {
+      "name": "bilibiliTV3.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/bilibiliTV3.png"
+    },
+    {
+      "name": "cdtfld.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/cdtfld.png"
+    },
+    {
+      "name": "ckysc.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/ckysc.png"
+    },
+    {
+      "name": "coodoo.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/coodoo.png"
+    },
+    {
+      "name": "cqxhsd.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/cqxhsd.png"
+    },
+    {
+      "name": "ddyxhs.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/ddyxhs.png"
+    },
+    {
+      "name": "dkn.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/dkn.png"
+    },
+    {
+      "name": "duleisi.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/duleisi.png"
+    },
+    {
+      "name": "emby.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/emby.png"
+    },
+    {
+      "name": "ftej.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/ftej.png"
+    },
+    {
       "name": "fxsh.png",
       "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/fxsh.png"
+    },
+    {
+      "name": "fyhs.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/fyhs.png"
+    },
+    {
+      "name": "github_01.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/github_01.png"
+    },
+    {
+      "name": "github_02.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/github_02.png"
+    },
+    {
+      "name": "hsyhs.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/hsyhs.png"
+    },
+    {
+      "name": "ileyou.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/ileyou.png"
+    },
+    {
+      "name": "instagram.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/instagram.png"
+    },
+    {
+      "name": "iqooc.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/iqooc.png"
+    },
+    {
+      "name": "jxzh.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/jxzh.png"
     },
     {
       "name": "kulechaowan.png",
       "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/kulechaowan.png"
     },
     {
+      "name": "kyxx.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/kyxx.png"
+    },
+    {
+      "name": "ljzf.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/ljzf.png"
+    },
+    {
+      "name": "lzly.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/lzly.png"
+    },
+    {
+      "name": "meituan.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/meituan.png"
+    },
+    {
+      "name": "michelin.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/michelin.png"
+    },
+    {
+      "name": "midea-blue.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/midea-blue.png"
+    },
+    {
+      "name": "midea-community.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/midea-community.png"
+    },
+    {
+      "name": "mnmy.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/mnmy.png"
+    },
+    {
+      "name": "netflix.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/netflix.png"
+    },
+    {
+      "name": "network-preferred.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/network-preferred.png"
+    },
+    {
       "name": "nflst.png",
       "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/nflst.png"
+    },
+    {
+      "name": "puci.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/puci.png"
+    },
+    {
+      "name": "qch.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/qch.png"
+    },
+    {
+      "name": "qwyx.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/qwyx.png"
+    },
+    {
+      "name": "rxjx.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/rxjx.png"
+    },
+    {
+      "name": "sfsy.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/sfsy.png"
+    },
+    {
+      "name": "shcn.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/shcn.png"
+    },
+    {
+      "name": "shyp.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/shyp.png"
+    },
+    {
+      "name": "socialmediacollection01.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/socialmediacollection01.png"
+    },
+    {
+      "name": "spotify.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/spotify.png"
+    },
+    {
+      "name": "steam.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/steam.png"
+    },
+    {
+      "name": "sypm.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/sypm.png"
+    },
+    {
+      "name": "t3dc.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/t3dc.png"
+    },
+    {
+      "name": "telegram.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/telegram.png"
+    },
+    {
+      "name": "topspace.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/topspace.png"
+    },
+    {
+      "name": "tuhu.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/tuhu.png"
+    },
+    {
+      "name": "twitter.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/twitter.png"
+    },
+    {
+      "name": "uicbox.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/uicbox.png"
+    },
+    {
+      "name": "wechat.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/wechat.png"
+    },
+    {
+      "name": "wmbwc.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/wmbwc.png"
+    },
+    {
+      "name": "wyx.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/wyx.png"
+    },
+    {
+      "name": "xmh.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/xmh.png"
+    },
+    {
+      "name": "ylqqx.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/ylqqx.png"
+    },
+    {
+      "name": "youtube_01.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/youtube_01.png"
+    },
+    {
+      "name": "youtube_02.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/youtube_02.png"
+    },
+    {
+      "name": "zto.png",
+      "url": "https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/zto.png"
     }
   ]
 }
