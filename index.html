@@ -9,25 +9,24 @@
      crossorigin="anonymous"></script>
   
   <script>
-    // 获取最佳 CDN 前缀
+    // 获取最佳 CDN 前缀（用于加载静态资源）
     function getBestCDN() {
       const lastCDN = localStorage.getItem('lastSuccessfulCDN');
       if (lastCDN) {
-        if (lastCDN.includes('cdn.jsdelivr.net')) return 'https://cdn.jsdelivr.net/';
-        if (lastCDN.includes('fastly.jsdelivr.net')) return 'https://fastly.jsdelivr.net/';
-        if (lastCDN.includes('gcore.jsdelivr.net')) return 'https://gcore.jsdelivr.net/';
-        if (lastCDN.includes('testingcf.jsdelivr.net')) return 'https://testingcf.jsdelivr.net/';
-        if (lastCDN.includes('cdn.jsdmirror.com')) return 'https://cdn.jsdmirror.com/';
+        try {
+          const url = new URL(lastCDN);
+          return url.origin + '/';
+        } catch(e) {}
       }
       return 'https://fastly.jsdelivr.net/';
     }
     
-    const CDN = getBestCDN();
+    const CDN_BASE = getBestCDN();
     
     // --- 动态设置 Favicon ---
     const favicon = document.createElement('link');
     favicon.rel = 'icon';
-    favicon.href = CDN + 'gh/czy13724/LeviIcons@main/profile.jpg'; 
+    favicon.href = 'https://fastly.jsdelivr.net/gh/czy13724/LeviIcons@main/profile.jpg'; 
     document.head.appendChild(favicon);
 
     // 动态加载 CSS
@@ -38,18 +37,15 @@
     
     const css2 = document.createElement('link');
     css2.rel = 'stylesheet';
-    css2.href = CDN + 'npm/font-awesome/css/font-awesome.min.css';
+    css2.href = 'https://npm.elemecdn.com/font-awesome@4.7.0/css/font-awesome.min.css';
     document.head.appendChild(css2);
     
-    // 动态加载 live2d
+    // 动态加载 live2d (仅桌面端)
     if (window.innerWidth > 768) {
       const live2d = document.createElement('script');
-      live2d.src = CDN + 'gh/stevenjoezhang/live2d-widget@latest/autoload.js';
+      live2d.src = 'https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js';
       document.head.appendChild(live2d);
     }
-    
-    // 设置背景图片 CDN
-    window.BG_CDN = CDN + 'gh/';
   </script>
   
   <style>
@@ -285,7 +281,8 @@
       box-shadow: 0 2px 4px var(--shadow); transition: 0.3s;
     }
     .icon-item img {
-      max-width: 64px; height: auto;
+      width: 64px; height: 64px;
+      object-fit: contain;
       cursor: pointer; display: block; margin: 0 auto;
     }
     .icon-item p { 
@@ -331,44 +328,23 @@
     .footer a:hover { text-decoration: underline; }
     .loading { text-align: center; padding: 20px; font-size: 16px; }
     
-    /* --- [核心修复] 提示框样式 ---
-       桌面端：右侧滑入
-       移动端：顶部掉落 (避免 left/right 冲突导致无法消失)
-    */
     .toast-box {
       position: fixed; 
       padding: 12px 20px;
-      border-radius: 8px 0 0 8px; /* 左侧圆角 */
+      border-radius: 8px 0 0 8px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.3);
       font-size: 14px; 
       z-index: 9999;
       color: white;
       display: flex; align-items: center; gap: 10px; white-space: nowrap;
-      
-      /* 桌面端默认状态 */
       right: -400px;
       transition: right 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
     
-    /* 桌面端显示状态 */
-    .toast-box.show { 
-      right: 0; 
-    }
-    
-    .cdn-toast { 
-      top: 80px; 
-      background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); 
-    }
-    
-    .message-toast { 
-      top: 140px; 
-      background-color: #333; 
-      border-left: 5px solid #4CAF50; 
-    }
+    .toast-box.show { right: 0; }
+    .cdn-toast { top: 80px; background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+    .message-toast { top: 140px; background-color: #333; border-left: 5px solid #4CAF50; }
 
-    /* =========================================
-       📱 移动端适配
-       ========================================= */
     @media (max-width: 768px) {
       .header-toolbar {
         position: relative; 
@@ -379,44 +355,21 @@
         padding: 0 10px;
         box-sizing: border-box;
       }
-      
       .container { padding-top: 20px; }
       .controls { flex-direction: column; gap: 10px; }
       #search { width: 100%; }
-      
-      .controls-right {
-        width: 100%;
-        display: grid;
-        grid-template-columns: 1fr 1fr; 
-        gap: 8px;
-      }
-      
+      .controls-right { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
       #categoryFilter { grid-column: 1 / -1; width: 100%; min-width: unset; }
       .copy-collection-btn, .download-all { width: 100%; }
       #cdnSelector { max-width: 120px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
       .icon-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 15px; padding: 10px; }
-
-      /* [核心修复] 移动端提示框：改用 transform 从顶部掉落 */
+      
       .toast-box {
-        right: auto; /* 清除桌面端样式 */
-        left: 50%;   /* 居中 */
-        width: auto;
-        min-width: 200px;
-        justify-content: center;
-        border-radius: 8px; /* 四周圆角 */
-        
-        /* 初始状态：移出屏幕上方 */
+        right: auto; left: 50%; width: auto; min-width: 200px; justify-content: center; border-radius: 8px;
         transform: translateX(-50%) translateY(-200%);
         transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       }
-      
-      /* 显示状态：滑入视野 */
-      .toast-box.show {
-        right: auto; /* 保持清除 */
-        transform: translateX(-50%) translateY(0);
-      }
-      
-      /* 调整位置 */
+      .toast-box.show { right: auto; transform: translateX(-50%) translateY(0); }
       .cdn-toast { top: 10px; }
       .message-toast { top: 60px; }
     }
@@ -434,23 +387,30 @@
       <i class="fa fa-coffee"></i>
       <span>赞助</span>
     </a>
+    
     <select id="cdnSelector" class="toolbar-item">
-      <option value="auto">🚀 自动选择</option>
-      <option value="cdn.jsdelivr.net">cdn.jsdelivr.net</option>
-      <option value="fastly.jsdelivr.net">fastly.jsdelivr.net</option>
-      <option value="gcore.jsdelivr.net">gcore.jsdelivr.net</option>
-      <option value="testingcf.jsdelivr.net">testingcf.jsdelivr.net</option>
-      <option value="cdn.jsdmirror.com">cdn.jsdmirror.com</option>
-      <option value="ghproxy.com">ghproxy.com</option>
-      <option value="mirror.ghproxy.com">mirror.ghproxy.com</option>
-      <option value="gh.api.99988866.xyz">gh.api.99988866.xyz</option>
-      <option value="github.moeyy.xyz">github.moeyy.xyz</option>
-      <option value="gh-proxy.com">gh-proxy.com</option>
-      <option value="ghps.cc">ghps.cc</option>
-      <option value="cors.isteed.cc">cors.isteed.cc</option>
-      <option value="cdn.staticaly.com">cdn.staticaly.com</option>
-      <option value="raw.githubusercontent.com">raw.githubusercontent.com</option>
+      <option value="auto">🚀 自动选择 (Auto)</option>
+      <optgroup label="jsDelivr 系列 (推荐)">
+        <option value="https://fastly.jsdelivr.net/gh/czy13724/LeviIcons@main/">Fastly (快)</option>
+        <option value="https://gcore.jsdelivr.net/gh/czy13724/LeviIcons@main/">Gcore</option>
+        <option value="https://cdn.jsdelivr.net/gh/czy13724/LeviIcons@main/">Cloudflare</option>
+        <option value="https://testingcf.jsdelivr.net/gh/czy13724/LeviIcons@main/">Test-CF</option>
+        <option value="https://cdn.jsdmirror.com/gh/czy13724/LeviIcons@main/">JSDMirror (国内优)</option>
+      </optgroup>
+      <optgroup label="加速镜像 (Proxy)">
+        <option value="https://cdn.staticaly.com/gh/czy13724/LeviIcons@main/">Staticaly</option>
+        <option value="https://raw.gitmirror.com/czy13724/LeviIcons/main/">GitMirror</option>
+        <option value="https://raw.kgithub.com/czy13724/LeviIcons/main/">KGitHub</option>
+        <option value="https://raw.kkgithub.com/czy13724/LeviIcons/main/">KKGitHub</option>
+        <option value="https://ghproxy.net/https://raw.githubusercontent.com/czy13724/LeviIcons/main/">GHProxy.net</option>
+        <option value="https://ghproxy.com/https://raw.githubusercontent.com/czy13724/LeviIcons/main/">GHProxy.com</option>
+        <option value="https://mirror.ghproxy.com/https://raw.githubusercontent.com/czy13724/LeviIcons/main/">Mirror.GHProxy</option>
+      </optgroup>
+      <optgroup label="原始源 (Slow)">
+        <option value="https://raw.githubusercontent.com/czy13724/LeviIcons/main/">GitHub Raw</option>
+      </optgroup>
     </select>
+
     <button id="darkModeToggle" class="toolbar-item" title="切换暗黑模式">
       <i class="fa fa-moon"></i>
     </button>
@@ -464,7 +424,7 @@
         <a href="mailto:contact@levifree.qzz.io"><i class="fa fa-envelope"></i> Email</a>
       </div>
     </div>
-    <a id="githubLink" class="toolbar-item" href="https://github.com/czy13724" target="_blank" title="GitHub">
+    <a id="githubLink" class="toolbar-item" href="https://github.com/czy13724/LeviIcons" target="_blank" title="GitHub">
       <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
         <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
       </svg>
@@ -510,246 +470,125 @@
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
   <script>
-    let currentJsonUrl = '';
+    const REPO_PATH = 'czy13724/LeviIcons@main/levi.icons.json';
+    const RAW_PATH = 'czy13724/LeviIcons/main/levi.icons.json';
     
-    // 全局定时器变量，用于防止冲突
+    // 增加了更多自动测速的源
+    const DEFAULT_CONFIG_SOURCES = [
+      `https://fastly.jsdelivr.net/gh/${REPO_PATH}`,
+      `https://cdn.jsdelivr.net/gh/${REPO_PATH}`,
+      `https://gcore.jsdelivr.net/gh/${REPO_PATH}`,
+      `https://testingcf.jsdelivr.net/gh/${REPO_PATH}`,
+      `https://cdn.jsdmirror.com/gh/${REPO_PATH}`, // 优质国内镜像
+      `https://cdn.staticaly.com/gh/${REPO_PATH}`,
+      `https://raw.gitmirror.com/${RAW_PATH}`,     // GitMirror
+      `https://raw.kgithub.com/${RAW_PATH}`,       // KGitHub
+      `https://raw.kkgithub.com/${RAW_PATH}`,      // KKGitHub
+      `https://ghproxy.net/https://raw.githubusercontent.com/${RAW_PATH}`,
+      `https://ghproxy.com/https://raw.githubusercontent.com/${RAW_PATH}`,
+      `https://mirror.ghproxy.com/https://raw.githubusercontent.com/${RAW_PATH}`,
+      `https://raw.githubusercontent.com/${RAW_PATH}`
+    ];
+
+    let currentBaseUrl = ''; 
+    let icons = [];
     let cdnTimer = null;
     let msgTimer = null;
 
     (function() {
-      const bgCDN = window.BG_CDN || 'https://fastly.jsdelivr.net/gh/';
-      const lightBg = bgCDN + 'czy13724/czy13724.github.io@master/img/bg/image_20.jpg';
-      const darkBg = bgCDN + 'czy13724/czy13724.github.io@master/img/bg/image_32.jpg';
+      const bgBase = 'https://fastly.jsdelivr.net/gh/';
+      const lightBg = bgBase + 'czy13724/czy13724.github.io@master/img/bg/image_20.jpg';
+      const darkBg = bgBase + 'czy13724/czy13724.github.io@master/img/bg/image_32.jpg';
       const hour = new Date().getHours();
       const isNight = hour >= 18 || hour < 6;
-      if (isNight) { document.body.classList.add('dark-mode'); } 
-      else { document.body.classList.remove('dark-mode'); }
+      if (isNight) document.body.classList.add('dark-mode');
       
       function updateThemeUI() {
         const isDark = document.body.classList.contains('dark-mode');
         const toggleIcon = document.querySelector('#darkModeToggle i');
-        if (isDark) {
-          toggleIcon.className = 'fa fa-sun'; 
-          document.body.style.backgroundImage = `url('${darkBg}')`;
-        } else {
-          toggleIcon.className = 'fa fa-moon'; 
-          document.body.style.backgroundImage = `url('${lightBg}')`;
-        }
+        toggleIcon.className = isDark ? 'fa fa-sun' : 'fa fa-moon';
+        document.body.style.backgroundImage = `url('${isDark ? darkBg : lightBg}')`;
       }
       updateThemeUI();
-      const toggleBtn = document.getElementById('darkModeToggle');
-      if (toggleBtn) {
-        toggleBtn.onclick = () => {
-          document.body.classList.toggle('dark-mode');
-          updateThemeUI();
-        };
-      }
+      document.getElementById('darkModeToggle').onclick = () => {
+        document.body.classList.toggle('dark-mode');
+        updateThemeUI();
+      };
     })();
-    
-    let icons = [];
-    let successfulCDN = 'https://fastly.jsdelivr.net/gh/'; 
-    const RAW_PREFIX = "https://raw.githubusercontent.com/";
-    const CDN_PREFIX = "https://fastly.jsdelivr.net/gh/";
-    const MAX_RETRIES = 1; 
-    const RETRY_DELAY = 1000; 
-    const TIMEOUT = 5000; 
-    const PARALLEL_TEST_COUNT = 3; 
-    const DEFAULT_CONFIG_SOURCES = [
-      'https://cdn.jsdelivr.net/gh/czy13724/LeviIcons@main/levi.icons.json',
-      'https://fastly.jsdelivr.net/gh/czy13724/LeviIcons@main/levi.icons.json',
-      'https://gcore.jsdelivr.net/gh/czy13724/LeviIcons@main/levi.icons.json',
-      'https://testingcf.jsdelivr.net/gh/czy13724/LeviIcons@main/levi.icons.json',
-      'https://cdn.jsdmirror.com/gh/czy13724/LeviIcons@main/levi.icons.json',
-      'https://ghproxy.com/https://raw.githubusercontent.com/czy13724/LeviIcons/main/levi.icons.json',
-      'https://mirror.ghproxy.com/https://raw.githubusercontent.com/czy13724/LeviIcons/main/levi.icons.json',
-      'https://gh.api.99988866.xyz/https://raw.githubusercontent.com/czy13724/LeviIcons/main/levi.icons.json',
-      'https://github.moeyy.xyz/https://raw.githubusercontent.com/czy13724/LeviIcons/main/levi.icons.json',
-      'https://gh-proxy.com/https://raw.githubusercontent.com/czy13724/LeviIcons/main/levi.icons.json',
-      'https://ghps.cc/https://raw.githubusercontent.com/czy13724/LeviIcons/main/levi.icons.json',
-      'https://cors.isteed.cc/github.com/czy13724/LeviIcons/raw/main/levi.icons.json',
-      'https://cdn.staticaly.com/gh/czy13724/LeviIcons/main/levi.icons.json',
-      'https://raw.githubusercontent.com/czy13724/LeviIcons/main/levi.icons.json'
-    ];
-
-    function getConfigFromURL() {
-      const params = new URLSearchParams(window.location.search);
-      const customConfig = params.get('config');
-      if (customConfig) {
-        try {
-          const url = new URL(customConfig);
-          if (url.protocol === 'https:') return customConfig;
-        } catch (e) {}
-      }
-      return null;
-    }
 
     function getConfigSources() {
       const manualCDN = localStorage.getItem('manualCDN');
       if (manualCDN && manualCDN !== 'auto') {
-        const manualSource = DEFAULT_CONFIG_SOURCES.find(s => s.includes(manualCDN));
-        if (manualSource) return [manualSource, ...DEFAULT_CONFIG_SOURCES.filter(s => s !== manualSource)];
+        return [manualCDN + 'levi.icons.json']; 
       }
       const lastSuccessful = localStorage.getItem('lastSuccessfulCDN');
       if (lastSuccessful) {
-        const lastTime = localStorage.getItem('lastSuccessfulTime');
-        const now = Date.now();
-        if (lastTime && (now - parseInt(lastTime)) < 7 * 24 * 60 * 60 * 1000) {
-          return [lastSuccessful, ...DEFAULT_CONFIG_SOURCES.filter(s => s !== lastSuccessful)];
-        }
+        return [lastSuccessful, ...DEFAULT_CONFIG_SOURCES.filter(s => s !== lastSuccessful)];
       }
-      const customConfig = getConfigFromURL();
-      if (customConfig) return [customConfig, ...DEFAULT_CONFIG_SOURCES];
       return [...DEFAULT_CONFIG_SOURCES];
     }
 
-    async function fetchWithRetry(url, retries = MAX_RETRIES, delay = RETRY_DELAY) {
-      for (let i = 0; i <= retries; i++) {
-        try {
-          updateLoadingStatus(`正在从 ${formatSourceName(url)} 加载... (第${i + 1}/${retries + 1}次尝试)`);
-          const cacheBuster = `${url.includes('?') ? '&' : '?'}t=${Date.now()}`;
-          const controller = new AbortController();
-          const timeoutId = setTimeout(() => controller.abort(), TIMEOUT);
-          const response = await fetch(url + cacheBuster, {
-            signal: controller.signal,
-            headers: { 'Accept': 'application/json' }
-          });
-          clearTimeout(timeoutId);
-          if (!response.ok) throw new Error(`HTTP ${response.status}`);
-          return await response.json();
-        } catch (error) {
-          if (i === retries) throw new Error(error.message);
-          updateLoadingStatus(`加载失败，${delay/1000}秒后重试...`);
-          await new Promise(resolve => setTimeout(resolve, delay));
-        }
-      }
-    }
-
-    function extractCDNPrefix(configUrl) {
-      if (configUrl.includes('cdn.jsdelivr.net/gh/')) return 'https://cdn.jsdelivr.net/gh/';
-      if (configUrl.includes('fastly.jsdelivr.net/gh/')) return 'https://fastly.jsdelivr.net/gh/';
-      if (configUrl.includes('gcore.jsdelivr.net/gh/')) return 'https://gcore.jsdelivr.net/gh/';
-      if (configUrl.includes('testingcf.jsdelivr.net/gh/')) return 'https://testingcf.jsdelivr.net/gh/';
-      if (configUrl.includes('cdn.jsdmirror.com/gh/')) return 'https://cdn.jsdmirror.com/gh/';
-      if (configUrl.includes('cdn.staticaly.com/gh/')) return 'https://cdn.staticaly.com/gh/';
-      return 'https://fastly.jsdelivr.net/gh/';
-    }
-
-    function convertToCDN(rawUrl) {
-      if (rawUrl.includes(RAW_PREFIX)) {
-        const parts = rawUrl.replace(RAW_PREFIX, '').split('/');
-        if (parts.length >= 3) {
-          return `${successfulCDN}${parts[0]}/${parts[1]}@${parts[2]}/${parts.slice(3).join('/')}`;
-        }
-      }
-      return rawUrl;
-    }
-
-    // [修复] CDN 提示逻辑：先清除旧定时器
-    function showCDNToast(cdnName) {
-      const toast = document.getElementById('cdnToast');
-      const nameEl = document.getElementById('cdnName');
+    async function fetchWithRetry(url) {
+      const cacheBuster = `${url.includes('?') ? '&' : '?'}t=${Date.now()}`;
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
       
-      let displayName = cdnName;
-      if (cdnName.includes('jsdelivr')) {
-        if (cdnName.includes('cdn.jsdelivr.net')) displayName = 'cdn.jsdelivr.net';
-        else if (cdnName.includes('fastly.jsdelivr.net')) displayName = 'fastly.jsdelivr.net';
-        else if (cdnName.includes('gcore.jsdelivr.net')) displayName = 'gcore.jsdelivr.net';
-        else if (cdnName.includes('testingcf.jsdelivr.net')) displayName = 'testingcf.jsdelivr.net';
-        else if (cdnName.includes('cdn.jsdmirror.com')) displayName = 'cdn.jsdmirror.com';
+      try {
+        const response = await fetch(url + cacheBuster, {
+          signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+        if (!response.ok) throw new Error('HTTP Error');
+        return await response.json();
+      } catch (error) {
+        clearTimeout(timeoutId);
+        throw error;
       }
-      nameEl.textContent = displayName;
-      
-      if (cdnTimer) clearTimeout(cdnTimer); // 关键修复
-      toast.classList.add('show');
-      cdnTimer = setTimeout(() => toast.classList.remove('show'), 4000);
-    }
-
-    // [修复] 消息提示逻辑：先清除旧定时器
-    function showMessage(msg) {
-      const toast = document.getElementById('messageToast');
-      const textEl = document.getElementById('messageText');
-      textEl.textContent = msg;
-      
-      if (msgTimer) clearTimeout(msgTimer); // 关键修复
-      toast.classList.add('show');
-      msgTimer = setTimeout(() => toast.classList.remove('show'), 3000);
-    }
-
-    function formatSourceName(url) {
-      if (url.includes('raw.githubusercontent.com')) return 'GitHub Raw';
-      if (url.includes('cdn.jsdelivr.net')) return 'jsDelivr CDN';
-      if (url.includes('fastly.jsdelivr.net')) return 'jsDelivr Fastly';
-      if (url.includes('gcore.jsdelivr.net')) return 'jsDelivr Gcore';
-      if (url.includes('testingcf.jsdelivr.net')) return 'jsDelivr CF';
-      if (url.includes('cdn.jsdmirror.com')) return 'jsDelivr Mirror';
-      if (url.includes('ghproxy.com')) return 'GHProxy';
-      return 'Remote';
-    }
-
-    function updateLoadingStatus(message) {
-      const loadingEl = document.getElementById('loadingStatus');
-      if (loadingEl) loadingEl.textContent = message;
-    }
-
-    function validateConfig(config) {
-      const errors = [];
-      if (!config.name) errors.push('缺少 name');
-      if (!config.description) errors.push('缺少 description');
-      if (!Array.isArray(config.icons)) errors.push('icons 必须是数组');
-      return { valid: errors.length === 0, errors };
     }
 
     async function loadIconData() {
       const sources = getConfigSources();
-      if (sources.length >= PARALLEL_TEST_COUNT) {
-        updateLoadingStatus('🚀 智能选择最快节点...');
-        try {
-          const parallelSources = sources.slice(0, PARALLEL_TEST_COUNT);
-          const result = await Promise.race(
-            parallelSources.map(async (source) => {
-              const data = await fetchWithRetry(source);
-              if (!validateConfig(data).valid) throw new Error('配置格式无效');
-              return { success: true, source, data };
-            })
-          );
-          if (result.success) {
-            applyData(result.source, result.data);
-            return;
-          }
-        } catch (e) { console.warn('并行测速失败，切换顺序加载'); }
-      }
+      updateLoadingStatus('🚀 正在连接图标库 (Testing Mirrors)...');
+
       for (const source of sources) {
         try {
           const data = await fetchWithRetry(source);
-          if (validateConfig(data).valid) {
+          if (validateConfig(data)) {
             applyData(source, data);
             return;
           }
-        } catch (e) { console.error(e); }
+        } catch (e) {
+          console.warn(`Failed to load from ${source}`, e);
+        }
       }
-      document.getElementById('loadingStatus').innerHTML = '<div class="error">加载失败，请重试</div>';
+      document.getElementById('loadingStatus').innerHTML = '<div style="color:red">⚠️ 加载失败，请检查网络或切换 CDN</div>';
     }
 
-    function applyData(source, data) {
-      currentJsonUrl = source;
-      localStorage.setItem('lastSuccessfulCDN', source);
-      localStorage.setItem('lastSuccessfulTime', Date.now().toString());
-      document.title = data.name;
-      document.getElementById('description').textContent = data.description;
-      successfulCDN = extractCDNPrefix(source);
-      showCDNToast(formatSourceName(source));
+    function validateConfig(data) {
+      return data && Array.isArray(data.icons);
+    }
+
+    function applyData(sourceUrl, data) {
+      currentBaseUrl = sourceUrl.substring(0, sourceUrl.lastIndexOf('/') + 1);
+      
+      localStorage.setItem('lastSuccessfulCDN', sourceUrl);
+      document.title = data.name || 'Levi Icons';
+      document.getElementById('description').textContent = data.description || '';
+      
+      showCDNToast(formatSourceName(currentBaseUrl));
       
       icons = data.icons.map(icon => {
-        icon.rawUrl = icon.url;
-        icon.url = convertToCDN(icon.url);
-        return icon;
+        return {
+          name: icon.name,
+          url: currentBaseUrl + 'leviicons/' + icon.name, 
+          rawUrl: `https://raw.githubusercontent.com/czy13724/LeviIcons/main/leviicons/${icon.name}`
+        };
       });
+
       document.getElementById('loadingStatus').style.display = 'none';
       renderIcons(icons);
       updateCategoryFilter(icons);
     }
-
-    loadIconData();
 
     function renderIcons(data) {
       const grid = document.getElementById('iconGrid');
@@ -759,8 +598,8 @@
         el.className = 'icon-item';
         const name = icon.name.split('.')[0];
         el.innerHTML = `
-          <img src="${icon.url}" onclick="openModal('${icon.url}')" onerror="this.style.opacity=0.5">
-          <p>${name}</p>
+          <img src="${icon.url}" loading="lazy" onclick="openModal('${icon.url}')" onerror="this.style.opacity=0.3">
+          <p title="${icon.name}">${name}</p>
           <div class="icon-actions">
             <button onclick="downloadIcon('${icon.url}', '${icon.name}')">下载</button>
             <button onclick="copyLink('${icon.url}')">复制加速链接</button>
@@ -770,17 +609,45 @@
       });
     }
 
+    function updateLoadingStatus(msg) {
+      const el = document.getElementById('loadingStatus');
+      if (el) el.textContent = msg;
+    }
+
+    function formatSourceName(url) {
+      if (url.includes('cdn.jsdelivr')) return 'jsDelivr Cloudflare';
+      if (url.includes('fastly.jsdelivr')) return 'jsDelivr Fastly';
+      if (url.includes('gcore.jsdelivr')) return 'jsDelivr Gcore';
+      if (url.includes('jsdmirror')) return 'JSDMirror';
+      if (url.includes('staticaly')) return 'Staticaly';
+      if (url.includes('gitmirror')) return 'GitMirror';
+      if (url.includes('kgithub')) return 'KGitHub';
+      if (url.includes('ghproxy')) return 'GHProxy';
+      if (url.includes('githubusercontent')) return 'GitHub Raw';
+      return 'Custom Mirror';
+    }
+
+    function showCDNToast(name) {
+      const toast = document.getElementById('cdnToast');
+      document.getElementById('cdnName').textContent = name;
+      if (cdnTimer) clearTimeout(cdnTimer);
+      toast.classList.add('show');
+      cdnTimer = setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    function showMessage(msg) {
+      const toast = document.getElementById('messageToast');
+      document.getElementById('messageText').textContent = msg;
+      if (msgTimer) clearTimeout(msgTimer);
+      toast.classList.add('show');
+      msgTimer = setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
     function updateCategoryFilter(icons) {
       const catFilter = document.getElementById('categoryFilter');
       catFilter.innerHTML = '<option value="">📌 全部 (All)</option>';
-      
-      const initials = icons
-        .map(i => i.name ? i.name.charAt(0).toUpperCase() : '')
-        .filter(c => c); 
-        
-      const uniqueInitials = [...new Set(initials)].sort();
-
-      uniqueInitials.forEach(char => {
+      const initials = [...new Set(icons.map(i => i.name.charAt(0).toUpperCase()))].sort();
+      initials.forEach(char => {
         const opt = document.createElement('option');
         opt.value = char;
         opt.textContent = char;
@@ -790,79 +657,73 @@
 
     document.getElementById('categoryFilter').addEventListener('change', e => {
       const char = e.target.value;
-      if (!char) {
-        renderIcons(icons);
-      } else {
-        const filtered = icons.filter(i => 
-          i.name && i.name.toUpperCase().startsWith(char)
-        );
-        renderIcons(filtered);
-      }
+      renderIcons(char ? icons.filter(i => i.name.toUpperCase().startsWith(char)) : icons);
     });
 
     document.getElementById('search').addEventListener('input', e => {
       const term = e.target.value.toLowerCase();
-      renderIcons(icons.filter(icon => icon.name.toLowerCase().includes(term)));
+      renderIcons(icons.filter(i => i.name.toLowerCase().includes(term)));
     });
 
-    function downloadIcon(url, name) {
+    window.downloadIcon = (url, name) => {
       const a = document.createElement('a');
       a.href = url; a.download = name;
       document.body.appendChild(a);
       a.click(); document.body.removeChild(a);
       showMessage('开始下载...');
-    }
-
-    function copyLink(url) {
-      navigator.clipboard.writeText(url)
-        .then(() => showMessage('✨ 链接已复制到剪贴板！'))
-        .catch(() => showMessage('❌ 复制失败，请手动复制'));
-    }
-
-    document.getElementById('copyCollectionBtn').onclick = () => {
-      if (currentJsonUrl) {
-        navigator.clipboard.writeText(currentJsonUrl)
-          .then(() => showMessage('📋 合集链接已复制！'))
-          .catch(() => showMessage('❌ 复制失败'));
-      } else {
-        showMessage('⚠️ 尚未加载到有效的源链接');
-      }
     };
 
-    function openModal(url) {
+    window.copyLink = (url) => {
+      navigator.clipboard.writeText(url)
+        .then(() => showMessage('✨ 链接已复制！'))
+        .catch(() => showMessage('❌ 复制失败'));
+    };
+    
+    document.getElementById('copyCollectionBtn').onclick = () => {
+      navigator.clipboard.writeText(currentBaseUrl + 'levi.icons.json')
+        .then(() => showMessage('📋 JSON 链接已复制'))
+        .catch(() => showMessage('❌ 复制失败'));
+    };
+
+    window.openModal = (url) => {
       document.getElementById('iconModal').style.display = 'flex';
       document.getElementById('modalImage').src = url;
-    }
-
+    };
     document.getElementById('closeModal').onclick = () => {
       document.getElementById('iconModal').style.display = 'none';
     };
 
     document.getElementById('downloadAll').onclick = () => {
-      if (icons.length === 0) return alert('没有可下载的图标');
-      showMessage('🚀 正在打包下载，请稍候...');
+      if (!icons.length) return;
+      showMessage('🚀 正在打包，请稍候...');
       const zip = new JSZip();
-      Promise.all(icons.map(icon => fetch(icon.url).then(r => r.blob().then(b => zip.file(icon.name, b)))))
-        .then(() => zip.generateAsync({type:"blob"}))
-        .then(content => {
-          const a = document.createElement('a');
-          a.href = URL.createObjectURL(content);
-          a.download = "levi-icons.zip";
-          document.body.appendChild(a);
-          a.click(); document.body.removeChild(a);
-          showMessage('✅ 打包完成，开始下载');
-        })
-        .catch(error => showMessage('❌ 下载失败，请稍后重试'));
+      let count = 0;
+      icons.forEach(icon => {
+        fetch(icon.url).then(r => r.blob()).then(blob => {
+          zip.file(icon.name, blob);
+          count++;
+          if (count === icons.length) {
+            zip.generateAsync({type:"blob"}).then(content => {
+              const a = document.createElement('a');
+              a.href = URL.createObjectURL(content);
+              a.download = "levi-icons.zip";
+              document.body.appendChild(a);
+              a.click();
+              showMessage('✅ 下载开始');
+            });
+          }
+        });
+      });
     };
 
-    const cdnSelector = document.getElementById('cdnSelector');
-    const savedCDN = localStorage.getItem('manualCDN') || 'auto';
-    cdnSelector.value = savedCDN;
-    cdnSelector.addEventListener('change', (e) => {
-      const selected = e.target.value;
-      localStorage.setItem('manualCDN', selected);
-      if (confirm(`已选择 ${selected}，是否立即刷新页面生效？`)) window.location.reload();
-    });
+    const selector = document.getElementById('cdnSelector');
+    selector.value = localStorage.getItem('manualCDN') || 'auto';
+    selector.onchange = (e) => {
+      localStorage.setItem('manualCDN', e.target.value);
+      if(confirm('切换源需要刷新页面，是否刷新？')) location.reload();
+    };
+
+    loadIconData();
   </script>
 </body>
 </html>
