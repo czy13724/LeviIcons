@@ -1,0 +1,81 @@
+name: Auto Generate Icon Json
+
+on:
+  push:
+    paths:
+      # [Config] Watch directory: Change 'leviicons' to your image folder name
+      - 'leviicons/**'
+
+permissions:
+  contents: write
+
+jobs:
+  generate_json:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Generate Commit Message
+        id: msg
+        run: |
+          BEFORE=${{ github.event.before }}
+          AFTER=${{ github.event.after }}
+          
+          # [Config] Change 'leviicons/' below to match your image folder name
+          DIR="leviicons/"
+          
+          ADDED=$(git diff --name-only --diff-filter=A $BEFORE $AFTER -- $DIR | xargs -I {} basename {} | paste -sd "," - | sed 's/,/, /g')
+          DELETED=$(git diff --name-only --diff-filter=D $BEFORE $AFTER -- $DIR | xargs -I {} basename {} | paste -sd "," - | sed 's/,/, /g')
+          MODIFIED=$(git diff --name-only --diff-filter=M $BEFORE $AFTER -- $DIR | xargs -I {} basename {} | paste -sd "," - | sed 's/,/, /g')
+          
+          MSG="Auto update:"
+          if [ -n "$ADDED" ]; then MSG="$MSG Add: $ADDED;"; fi
+          if [ -n "$DELETED" ]; then MSG="$MSG Delete: $DELETED;"; fi
+          if [ -n "$MODIFIED" ]; then MSG="$MSG Update: $MODIFIED;"; fi
+          
+          MSG="$MSG [skip ci]"
+          echo "COMMIT_MSG=$MSG" >> $GITHUB_ENV
+
+      - name: Execute Generator Script
+        run: |
+          # [Config] Script path: Change if your script is located elsewhere
+          python .github/scripts/generate_image_json.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit and Push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          # [Config] Output filename: Change if your script generates a different file
+          git add levi.icons.json
+          
+          if git diff --staged --quiet; then
+            echo "No changes detected. Workflow finished."
+            exit 0
+          fi
+          
+          git commit -m "${{ env.COMMIT_MSG }}"
+          
+          git pull --rebase origin main
+          git push origin HEAD:main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
