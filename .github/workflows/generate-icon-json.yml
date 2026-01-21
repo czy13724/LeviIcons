@@ -6,7 +6,7 @@ on:
       # [Config] Watch directory: Change 'leviicons' to your image folder name
       - 'leviicons/**'
   
-  # 1. 开启手动触发按钮
+  # [Config] Enable manual trigger button in Actions tab
   workflow_dispatch:
 
 permissions:
@@ -28,12 +28,14 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
+          # [Config] Caches dependencies based on requirements.txt
           cache: 'pip'
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests
+          # [Config] Install from requirements.txt (must exist in root)
+          pip install -r requirements.txt
 
       - name: Generate Commit Message
         id: msg
@@ -41,10 +43,10 @@ jobs:
           # [Config] Change 'leviicons/' below to match your image folder name
           DIR="leviicons/"
           
-          # 2. 设置默认消息（防止手动触发时没消息报错）
+          # Default message for manual triggers
           MSG="Manual update: Re-generated icon list [skip ci]"
           
-          # 3. 只有是 Push (自动触发) 时，才去计算具体改了什么文件
+          # Only calculate dynamic changes if triggered by a Push event
           if [ "${{ github.event_name }}" == "push" ]; then
             BEFORE=${{ github.event.before }}
             AFTER=${{ github.event.after }}
