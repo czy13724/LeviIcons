@@ -28,14 +28,6 @@ jobs:
         uses: actions/setup-python@v7
         with:
           python-version: '3.x'
-          # [Config] Caches dependencies based on requirements.txt
-          cache: 'pip'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          # [Config] Install from requirements.txt (must exist in root)
-          pip install -r requirements.txt
 
       - name: Generate Commit Message
         id: msg
