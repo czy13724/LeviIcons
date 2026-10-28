@@ -1,0 +1,7 @@
+version: 2
+updates:
+  # 自动检测并提醒 GitHub Actions 依赖更新
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
